@@ -1,15 +1,11 @@
 {
   "name": "combat-numbers",
   "title": "Combat Numbers",
-  "description": "A FoundryVTT module showcasing bouncing combat numbers on tokens, similar to old-school JRPGs.",
+  "description": "Showcase bouncing combat numbers on tokens, similar to old-school JRPGs.",
   "version": "0.1.0",
-  "author": "",
-  "authors": [
-    {
-      "name": "",
-      "email": "",
-      "url": ""
-    }
+  "author": "1000Nettles",
+  "systems": [
+    "dnd5e"
   ],
   "scripts": [],
   "esmodules": [

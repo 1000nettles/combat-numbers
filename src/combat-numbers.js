@@ -35,17 +35,17 @@ Hooks.once('init', async function() {
 /* ------------------------------------ */
 /* Setup module							*/
 /* ------------------------------------ */
-Hooks.once('setup', function() {
+/*Hooks.once('setup', function() {
 	// Do anything after initialization but before
 	// ready
-});
+});*/
 
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
-Hooks.once('ready', function() {
+/*Hooks.once('ready', function() {
 	// Do anything once the module is ready
-});
+});*/
 
 /**
  * Add a new layer to the canvas.
@@ -58,8 +58,9 @@ Hooks.once('canvasReady', () => {
  * Capture the Actor's HP and show the combat number on their token.
  */
 Hooks.on('preUpdateActor', (entity, options, audit) => {
-	console.log(entity);
-	if (!_.get(audit, 'diff')) {
+	if (
+		!_.get(audit, 'diff')
+	) {
 		return;
 	}
 
@@ -78,8 +79,6 @@ Hooks.on('preUpdateActor', (entity, options, audit) => {
 
 	tokens.forEach(token => {
 		const center = token.center;
-		console.log('our token');
-		console.log(token);
 		canvas.tokens.combatNumber.addCombatNumber(hpDiff, center.x, center.y);
 	});
 });
@@ -88,8 +87,6 @@ Hooks.on('preUpdateActor', (entity, options, audit) => {
  * Capture the Token's HP and show the combat number on them.
  */
 Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
-	console.log(scene);
-	console.log(entity);
 	if (
 		!_.get(audit, 'diff')
 		|| _.get(entity, 'hidden')
