@@ -2,7 +2,7 @@
   "private": true,
   "name": "combat-numbers-new",
   "version": "0.1.0",
-  "description": "",
+  "description": "A FoundryVTT module showcasing bouncing combat numbers on tokens, similar to old-school JRPGs.",
   "scripts": {
     "package": "gulp package"
   },
@@ -21,6 +21,12 @@
     "json-stringify-pretty-compact": "^2.0.0",
     "sass": "^1.29.0",
     "typescript": "^4.0.5",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
     "yargs": "^16.1.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "pixi-ease": "^3.0.6"
   }
 }

@@ -1,3 +1,4 @@
+dist/combat-numbers*
 node_modules
 foundryconfig.json
 .idea

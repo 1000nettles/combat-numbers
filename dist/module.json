@@ -1,8 +1,7 @@
 {
-  "name": "combat-numbers-new",
-  "title": "combat-numbers-new",
-  "description": "",
-  "systems": [],
+  "name": "combat-numbers",
+  "title": "Combat Numbers",
+  "description": "A FoundryVTT module showcasing bouncing combat numbers on tokens, similar to old-school JRPGs.",
   "version": "0.1.0",
   "author": "",
   "authors": [
@@ -14,15 +13,15 @@
   ],
   "scripts": [],
   "esmodules": [
-    "combat-numbers-new.js"
+    "combat-numbers.js"
   ],
   "styles": [
-    "combat-numbers-new.css"
+    "combat-numbers.css"
   ],
   "packs": [],
   "languages": [],
-  "minimumCoreVersion": "0.5.0",
-  "compatibleCoreVersion": "0.5.0",
+  "minimumCoreVersion": "0.7.5",
+  "compatibleCoreVersion": "0.7.6",
   "url": "",
   "manifest": "",
   "download": "",
