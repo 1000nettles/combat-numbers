@@ -8,8 +8,12 @@
  */
 
 // Import JavaScript modules
+import _ from 'lodash';
 import { registerSettings } from './module/settings.js';
 import { preloadTemplates } from './module/preloadTemplates.js';
+import CombatNumberLayer from './module/combatNumberLayer.js';
+import ActorCalculator from './module/actorCalculator.js';
+import TokenCalculator from './module/tokenCalculator.js';
 
 /* ------------------------------------ */
 /* Initialize module					*/
@@ -43,4 +47,69 @@ Hooks.once('ready', function() {
 	// Do anything once the module is ready
 });
 
-// Add any additional hooks if necessary
+/**
+ * Add a new layer to the canvas.
+ */
+Hooks.once('canvasReady', () => {
+	canvas.tokens.combatNumber = canvas.tokens.addChild(new CombatNumberLayer());
+});
+
+/**
+ * Capture the Actor's HP and show the combat number on their token.
+ */
+Hooks.on('preUpdateActor', (entity, options, audit) => {
+	console.log(entity);
+	if (!_.get(audit, 'diff')) {
+		return;
+	}
+
+	let hpDiff;
+	const actorCalculator = new ActorCalculator();
+
+	try {
+		hpDiff = actorCalculator.getHpDiff(entity, options);
+	} catch (e) {
+		// We may just not have been changing the HP attribute, or potentially it
+		// doesn't exist. Either way, let's not continue.
+		return;
+	}
+
+	const tokens = entity.getActiveTokens();
+
+	tokens.forEach(token => {
+		const center = token.center;
+		console.log('our token');
+		console.log(token);
+		canvas.tokens.combatNumber.addCombatNumber(hpDiff, center.x, center.y);
+	});
+});
+
+/**
+ * Capture the Token's HP and show the combat number on them.
+ */
+Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
+	console.log(scene);
+	console.log(entity);
+	if (
+		!_.get(audit, 'diff')
+		|| _.get(entity, 'hidden')
+	) {
+		return;
+	}
+
+	let hpDiff;
+
+	const tokenCalculator = new TokenCalculator();
+
+	try {
+		hpDiff = tokenCalculator.getHpDiff(entity, options);
+	} catch (e) {
+		// We may just not have been changing the HP attribute, or potentially it
+		// doesn't exist. Either way, let's not continue.
+		return;
+	}
+
+	const coords = tokenCalculator.getCoordinates(scene, entity);
+
+	canvas.tokens.combatNumber.addCombatNumber(hpDiff, coords.x, coords.y);
+});
