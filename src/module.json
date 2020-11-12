@@ -17,7 +17,7 @@
   "compatibleCoreVersion": "0.7.6",
   "url": "https://github.com/1000nettles/combat-numbers",
   "manifest": "https://raw.githubusercontent.com/1000nettles/combat-numbers/main/src/module.json",
-  "download": "",
+  "download": "https://github.com/1000nettles/combat-numbers/archive/combat-numbers-v0.1.0.zip",
   "license": "MIT",
   "readme": "https://raw.githubusercontent.com/1000nettles/combat-numbers/main/README.md"
 }
