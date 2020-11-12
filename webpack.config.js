@@ -1,12 +1,16 @@
 const path = require('path');
 
 module.exports = {
+  name: 'combat-numbers',
   mode: 'development',
-  devtool: 'cheap-source-map',
+  devtool: 'source-map',
   entry: './src/combat-numbers.js',
   output: {
     filename: 'combat-numbers.js',
     path: path.resolve(__dirname, 'dist'),
+  },
+  optimization: {
+    minimize: true,
   },
   watch: true
 };
