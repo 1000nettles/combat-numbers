@@ -9,10 +9,10 @@ Currently, this module is only for the DnD5e game system as one cannot choose th
 
 ## What Does This Look Like?
 
-Damage:
+####Damage  
 ![taking damage](img/preview1.gif)
 
-Healing:
+####Healing 
 ![getting healed](img/preview2.gif)
 
 ## Instructions
