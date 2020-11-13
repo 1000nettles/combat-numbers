@@ -32,21 +32,6 @@ Hooks.once('init', async function() {
 	// Register custom sheets (if any)
 });
 
-/* ------------------------------------ */
-/* Setup module							*/
-/* ------------------------------------ */
-/*Hooks.once('setup', function() {
-	// Do anything after initialization but before
-	// ready
-});*/
-
-/* ------------------------------------ */
-/* When ready							*/
-/* ------------------------------------ */
-/*Hooks.once('ready', function() {
-	// Do anything once the module is ready
-});*/
-
 /**
  * Add a new layer to the canvas.
  *
@@ -77,6 +62,10 @@ Hooks.on('preUpdateActor', (entity, options, audit) => {
 		return;
 	}
 
+	if (hpDiff === 0) {
+		return;
+	}
+
 	const tokens = entity.getActiveTokens();
 
 	tokens.forEach(token => {
@@ -97,7 +86,6 @@ Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
 	}
 
 	let hpDiff;
-
 	const tokenCalculator = new TokenCalculator();
 
 	try {
@@ -105,6 +93,10 @@ Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
 	} catch (e) {
 		// We may just not have been changing the HP attribute, or potentially it
 		// doesn't exist. Either way, let's not continue.
+		return;
+	}
+
+	if (hpDiff === 0) {
 		return;
 	}
 
