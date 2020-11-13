@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "combat-numbers-new",
+  "name": "combat-numbers",
   "version": "0.1.0",
   "description": "A FoundryVTT module showcasing bouncing combat numbers on tokens, similar to old-school JRPGs.",
   "scripts": {
