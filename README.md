@@ -21,7 +21,7 @@ Thanks to [Neutral Party](https://www.patreon.com/neutralparty) for the sample b
 
 Install the module, enabled it for your world, and voila! Any token or actor which has an HP attribute that changes will have the relevant combat numbers applied to them.
 
-The manifest URL for manual installation is: https://raw.githubusercontent.com/1000nettles/combat-numbers/main/src/module.json
+The manifest URL for manual installation is: https://github.com/1000nettles/combat-numbers/releases/latest/download/module.json
 
 ## Future Planned Features
 
