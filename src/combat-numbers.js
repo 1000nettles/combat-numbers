@@ -49,8 +49,10 @@ Hooks.once('init', async function() {
 
 /**
  * Add a new layer to the canvas.
+ *
+ * This happens every time a scene change takes place, hence the `on`.
  */
-Hooks.once('canvasReady', () => {
+Hooks.on('canvasReady', () => {
 	canvas.tokens.combatNumber = canvas.tokens.addChild(new CombatNumberLayer());
 });
 
