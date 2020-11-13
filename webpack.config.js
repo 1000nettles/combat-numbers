@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   name: 'combat-numbers',
@@ -12,5 +13,12 @@ module.exports = {
   optimization: {
     minimize: true,
   },
-  watch: true
+  watch: true,
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: './module.json', to: './' },
+      ],
+    }),
+  ],
 };
