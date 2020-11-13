@@ -4,7 +4,9 @@
   "version": "0.1.0",
   "description": "A FoundryVTT module showcasing bouncing combat numbers on tokens, similar to old-school JRPGs.",
   "scripts": {
-    "package": "gulp package"
+    "build": "npx webpack --config webpack.config.js",
+    "package": "gulp package",
+    "watch": "npx webpack --config webpack.config.js --watch"
   },
   "author": "",
   "license": "",

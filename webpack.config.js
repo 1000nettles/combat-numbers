@@ -13,7 +13,6 @@ module.exports = {
   optimization: {
     minimize: true,
   },
-  watch: true,
   plugins: [
     new CopyPlugin({
       patterns: [
