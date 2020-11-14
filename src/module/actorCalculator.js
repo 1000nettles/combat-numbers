@@ -4,7 +4,6 @@ import _ from 'lodash';
  * Used for any Actor-specific HP calculations.
  */
 export default class ActorCalculator {
-
   /**
    * Get the differences in HP from the original and changed entities.
    *
@@ -44,5 +43,4 @@ export default class ActorCalculator {
     return Number(_.get(origEntity, 'data.data.attributes.hp.temp', 0))
       - Number(_.get(changedEntity, changedEntityTempHpKey, 0));
   }
-
 }

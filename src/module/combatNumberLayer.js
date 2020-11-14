@@ -1,11 +1,12 @@
 import { ease } from 'pixi-ease';
-import CombatNumberGenerator from "./combatNumberGenerator.js";
+import CombatNumberGenerator from './combatNumberGenerator';
+
+/* global PlaceablesLayer */
 
 /**
  * A new layer which we can render combat numbers on.
  */
 export default class CombatNumberLayer extends PlaceablesLayer {
-
   constructor() {
     super();
     this.sortableChildren = true;
@@ -31,26 +32,26 @@ export default class CombatNumberLayer extends PlaceablesLayer {
     dmgNum.position.y = y;
     dmgNum.name = Math.random().toString(36).substring(16);
 
-    let child = this.addChild(dmgNum);
+    const child = this.addChild(dmgNum);
 
     const anim1 = ease.add(
       child,
       { x: child.transform.position.x, y: child.transform.position.y + -25 },
-      { duration: 100 }
+      { duration: 100 },
     );
 
     anim1.once('complete', () => {
       const anim2 = ease.add(
         child,
         { x: child.transform.position.x, y: child.transform.position.y + 40 },
-        { duration: 50 }
+        { duration: 50 },
       );
 
       anim2.once('complete', () => {
         const anim3 = ease.add(
           child,
           { alpha: 0 },
-          { wait: 1500, duration: 500 }
+          { wait: 1500, duration: 500 },
         );
 
         anim3.once('complete', () => {
@@ -59,5 +60,4 @@ export default class CombatNumberLayer extends PlaceablesLayer {
       });
     });
   }
-
 }

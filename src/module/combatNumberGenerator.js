@@ -1,8 +1,9 @@
+/* global PIXI */
+
 /**
  * Generate the combat number for display.
  */
 export default class CombatNumberGenerator {
-
   constructor(amount) {
     this.amount = amount;
   }
@@ -21,7 +22,7 @@ export default class CombatNumberGenerator {
 
     return new PIXI.Text(
       String(finalAmount),
-      this._getTextStyle()
+      this._getTextStyle(),
     );
   }
 
@@ -45,8 +46,7 @@ export default class CombatNumberGenerator {
       fontFamily: 'Verdana',
       fontSize: 24,
       fontWeight: 'bold',
-      strokeThickness: 4
+      strokeThickness: 4,
     });
   }
-
 }

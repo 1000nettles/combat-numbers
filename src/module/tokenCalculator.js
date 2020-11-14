@@ -4,7 +4,6 @@ import _ from 'lodash';
  * Used for any Token-specific calculations.
  */
 export default class TokenCalculator {
-
   constructor() {
     this.hpAttributeAccessor = 'actorData.data.attributes.hp.value';
   }
@@ -50,17 +49,16 @@ export default class TokenCalculator {
     const width = Number(entity.width) * gridSize;
     const height = Number(entity.height) * gridSize;
 
-    let coords = {};
+    const coords = {};
 
     // Take into account the width of the token - some may be larger than 1.
     coords.x = Math.round(
-      entity.x + (width / 2)
+      entity.x + (width / 2),
     );
     coords.y = Math.round(
-      entity.y + (height / 2)
+      entity.y + (height / 2),
     );
 
     return coords;
   }
-
 }

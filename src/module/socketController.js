@@ -1,8 +1,9 @@
+/* eslint no-console: ["error", { allow: ['warn', 'log', 'debug'] }] */
+
 /**
  * A controller for handling socket related operations for our module.
  */
 export default class SocketController {
-
   /**
    * SocketController constructor.
    *
@@ -45,7 +46,7 @@ export default class SocketController {
 
     this.game.socket.emit(
       this.socketName,
-      { number, x, y }
+      { number, x, y },
     );
   }
 
@@ -59,15 +60,14 @@ export default class SocketController {
    * @private
    */
   async _listen() {
-    this.game.socket.on(this.socketName, async data => {
+    this.game.socket.on(this.socketName, async (data) => {
       console.debug(`combat-numbers | Emission received on ${this.socketName}`);
 
       this.layer.addCombatNumber(
         Number(data.number),
         Number(data.x),
-        Number(data.y)
+        Number(data.y),
       );
     });
   }
-
 }
