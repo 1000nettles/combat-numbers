@@ -14,6 +14,17 @@ import { preloadTemplates } from './module/preloadTemplates.js';
 import CombatNumberLayer from './module/combatNumberLayer.js';
 import ActorCalculator from './module/actorCalculator.js';
 import TokenCalculator from './module/tokenCalculator.js';
+import SocketController from "./module/socketController";
+
+/**
+ * Our SocketController instance for use within hooks.
+ */
+let socketController;
+
+/**
+ * Our CombatNumberLayer instance for use within hooks.
+ */
+let layer;
 
 /* ------------------------------------ */
 /* Initialize module					*/
@@ -38,7 +49,14 @@ Hooks.once('init', async function() {
  * This happens every time a scene change takes place, hence the `on`.
  */
 Hooks.on('canvasReady', () => {
-	canvas.tokens.combatNumber = canvas.tokens.addChild(new CombatNumberLayer());
+	layer = new CombatNumberLayer();
+	canvas.tokens.combatNumber = canvas.tokens.addChild(layer);
+
+	socketController = new SocketController(game, layer);
+});
+
+Hooks.on('ready', async () => {
+	await socketController.init();
 });
 
 /**
@@ -71,6 +89,7 @@ Hooks.on('preUpdateActor', (entity, options, audit) => {
 	tokens.forEach(token => {
 		const center = token.center;
 		canvas.tokens.combatNumber.addCombatNumber(hpDiff, center.x, center.y);
+		socketController.emit(hpDiff, center.x, center.y);
 	});
 });
 
@@ -103,4 +122,5 @@ Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
 	const coords = tokenCalculator.getCoordinates(scene, entity);
 
 	canvas.tokens.combatNumber.addCombatNumber(hpDiff, coords.x, coords.y);
+	socketController.emit(hpDiff, coords.x, coords.y);
 });
