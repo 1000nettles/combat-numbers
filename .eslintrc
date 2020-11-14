@@ -3,6 +3,7 @@
   "extends": ["airbnb"],
   "rules": {
     "class-methods-use-this": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-restricted-syntax": ["ForOfStatement"]
   }
 }

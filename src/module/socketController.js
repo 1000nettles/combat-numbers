@@ -32,21 +32,25 @@ export default class SocketController {
    *
    * Specifically, this will emit data to construct and show a combat number.
    *
-   * @param {Number} number
+   * @param {number} number
    *   The relevant combat number value.
-   * @param x
+   * @param {number} x
    *   The relevant X position for later rendering.
-   * @param y
+   * @param {number} y
    *   The relevant Y position for later rendering.
+   * @param {string} sceneId
+   *   The current scene ID.
    *
    * @return {Promise<void>}
    */
-  async emit(number, x, y) {
+  async emit(number, x, y, sceneId) {
     console.debug(`combat-numbers | Emitting to ${this.socketName}`);
 
     this.game.socket.emit(
       this.socketName,
-      { number, x, y },
+      {
+        number, x, y, sceneId,
+      },
     );
   }
 
@@ -63,11 +67,41 @@ export default class SocketController {
     this.game.socket.on(this.socketName, async (data) => {
       console.debug(`combat-numbers | Emission received on ${this.socketName}`);
 
+      if (!this._shouldShowInScene(data.sceneId)) {
+        return;
+      }
+
       this.layer.addCombatNumber(
         Number(data.number),
         Number(data.x),
         Number(data.y),
       );
     });
+  }
+
+  /**
+   * Determine if we should show the combat numbers on the provided scene ID.
+   *
+   * This checks if the current user is viewing the appropriate scene or not.
+   *
+   * @param {string} sceneId
+   *   The provided scene ID that the action took place on.
+   *
+   * @return {boolean}
+   *   If we should show in the provided scene or not.
+   *
+   * @private
+   */
+  _shouldShowInScene(sceneId) {
+    let show = false;
+
+    for (const value of this.game.scenes) {
+      if (value._id === sceneId && value._view === true) {
+        show = true;
+        break;
+      }
+    }
+
+    return show;
   }
 }

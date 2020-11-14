@@ -67,6 +67,7 @@ Hooks.on('preUpdateActor', (entity, options, audit) => {
   }
 
   let hpDiff;
+  let currentScene;
   const actorCalculator = new ActorCalculator();
 
   try {
@@ -81,12 +82,24 @@ Hooks.on('preUpdateActor', (entity, options, audit) => {
     return;
   }
 
+  // Determine the current scene for emission later.
+  for (const value of game.scenes) {
+    if (value._view === true) {
+      currentScene = value;
+    }
+  }
+
+  if (!currentScene) {
+    console.warn('combat-numbers | Could not find current scene when rendering');
+    return;
+  }
+
   const tokens = entity.getActiveTokens();
 
   tokens.forEach((token) => {
     const { center } = token;
     canvas.tokens.combatNumber.addCombatNumber(hpDiff, center.x, center.y);
-    socketController.emit(hpDiff, center.x, center.y);
+    socketController.emit(hpDiff, center.x, center.y, currentScene._id);
   });
 });
 
@@ -119,5 +132,5 @@ Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
   const coords = tokenCalculator.getCoordinates(scene, entity);
 
   canvas.tokens.combatNumber.addCombatNumber(hpDiff, coords.x, coords.y);
-  socketController.emit(hpDiff, coords.x, coords.y);
+  socketController.emit(hpDiff, coords.x, coords.y, scene._id);
 });
