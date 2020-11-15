@@ -11,9 +11,11 @@
 import _ from 'lodash';
 import registerSettings from './module/settings';
 import CombatNumberLayer from './module/combatNumberLayer';
-import ActorCalculator from './module/actorCalculator';
-import TokenCalculator from './module/tokenCalculator';
 import SocketController from './module/socketController';
+import TokenUpdateCoordinator from './module/tokenUpdateCoordinator';
+import ActorUpdateCoordinator from './module/actorUpdateCoordinator';
+import TokenCalculator from './module/calculator/tokenCalculator';
+import ActorCalculator from './module/calculator/actorCalculator';
 
 /* eslint no-console: ["error", { allow: ['warn', 'log', 'debug'] }] */
 /* global Hooks */
@@ -30,13 +32,23 @@ let socketController;
  */
 let layer;
 
+/**
+ * Our ActorUpdateCoordinator instance for use within hooks.
+ */
+let actorUpdateCoordinator;
+
+/**
+ * Our TokenUpdateCoordinator instance for use within hooks.
+ */
+let tokenUpdateCoordinator;
+
 /* ------------------------------------ */
 /* Initialize module                    */
 /* ------------------------------------ */
 Hooks.once('init', async () => {
   console.log('combat-numbers | Initializing combat-numbers');
 
-  // Register custom module settings
+  // Register custom module settings.
   registerSettings();
 });
 
@@ -50,63 +62,40 @@ Hooks.on('canvasReady', () => {
   canvas.tokens.combatNumber = canvas.tokens.addChild(layer);
 
   socketController = new SocketController(game, layer);
+  actorUpdateCoordinator = new ActorUpdateCoordinator();
+  tokenUpdateCoordinator = new TokenUpdateCoordinator();
+  actorUpdateCoordinator = new ActorUpdateCoordinator(
+    game.scenes,
+    layer,
+    socketController,
+    new ActorCalculator(),
+  );
+  tokenUpdateCoordinator = new TokenUpdateCoordinator(
+    layer,
+    socketController,
+    new TokenCalculator(),
+  );
 });
 
 Hooks.on('ready', async () => {
   await socketController.init();
 });
 
-/**
- * Capture the Actor's HP and show the combat number on their token.
- */
-Hooks.on('preUpdateActor', (entity, options, audit) => {
+Hooks.on('preUpdateActor', (entity, delta, audit) => {
   if (
     !_.get(audit, 'diff')
   ) {
     return;
   }
 
-  let hpDiff;
-  let currentScene;
-  const actorCalculator = new ActorCalculator();
-
-  try {
-    hpDiff = actorCalculator.getHpDiff(entity, options);
-  } catch (e) {
-    // We may just not have been changing the HP attribute, or potentially it
-    // doesn't exist. Either way, let's not continue.
-    return;
-  }
-
-  if (hpDiff === 0) {
-    return;
-  }
-
-  // Determine the current scene for emission later.
-  for (const value of game.scenes) {
-    if (value._view === true) {
-      currentScene = value;
-    }
-  }
-
-  if (!currentScene) {
-    console.warn('combat-numbers | Could not find current scene when rendering');
-    return;
-  }
-
-  const tokens = entity.getActiveTokens();
-
-  tokens.forEach((token) => {
-    const { center } = token;
-    canvas.tokens.combatNumber.addCombatNumber(hpDiff, center.x, center.y);
-    socketController.emit(hpDiff, center.x, center.y, currentScene._id);
-  });
+  actorUpdateCoordinator.coordinatePreUpdate(
+    entity,
+    delta,
+    entity.getActiveTokens(),
+  );
 });
 
-/**
- * Capture the Token's HP and show the combat number on them.
- */
-Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
+Hooks.on('preUpdateToken', (scene, entity, delta, audit) => {
   if (
     !_.get(audit, 'diff')
     || _.get(entity, 'hidden')
@@ -114,23 +103,45 @@ Hooks.on('preUpdateToken', (scene, entity, options, audit) => {
     return;
   }
 
-  let hpDiff;
-  const tokenCalculator = new TokenCalculator();
+  // If the entity does not contain the specific data we need, let's grab
+  // it from the `game` object's relevant actor. This can take place if a token
+  // has been dragged to the scene and has not been populated yet with all its
+  // data in some systems. (For example, PF2E.)
+  if (tokenUpdateCoordinator.shouldUseActorCoordination(entity)) {
+    const actorId = _.get(entity, 'actorId', null);
+    const actorData = _.get(delta, 'actorData', null);
 
-  try {
-    hpDiff = tokenCalculator.getHpDiff(entity, options);
-  } catch (e) {
-    // We may just not have been changing the HP attribute, or potentially it
-    // doesn't exist. Either way, let's not continue.
+    if (actorId === null || actorData === null) {
+      console.warn('combat-numbers | Malformed token and delta data in `preUpdateToken` hook');
+      return;
+    }
+
+    const origActor = game.actors.get(actorId);
+
+    if (!origActor) {
+      console.warn('combat-numbers | Cannot find associated actor to token');
+      return;
+    }
+
+    actorUpdateCoordinator.coordinatePreUpdate(
+      origActor,
+      actorData,
+      [entity],
+    );
+
     return;
   }
 
-  if (hpDiff === 0) {
+  tokenUpdateCoordinator.coordinatePreUpdate(entity);
+});
+
+Hooks.on('updateToken', (scene, entity, delta, audit) => {
+  if (
+    !_.get(audit, 'diff')
+    || _.get(entity, 'hidden')
+  ) {
     return;
   }
 
-  const coords = tokenCalculator.getCoordinates(scene, entity);
-
-  canvas.tokens.combatNumber.addCombatNumber(hpDiff, coords.x, coords.y);
-  socketController.emit(hpDiff, coords.x, coords.y, scene._id);
+  tokenUpdateCoordinator.coordinateUpdate(scene, delta);
 });

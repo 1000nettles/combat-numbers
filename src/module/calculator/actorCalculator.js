@@ -1,9 +1,17 @@
 import _ from 'lodash';
+import AbstractCalculator from './abstractCalculator';
 
 /**
  * Used for any Actor-specific HP calculations.
  */
-export default class ActorCalculator {
+export default class ActorCalculator extends AbstractCalculator {
+  constructor() {
+    super();
+
+    // Slime - this doesn't line up as nicely as we want.
+    this.hpAttributeAccessor = 'data.attributes.hp.value';
+  }
+
   /**
    * Get the differences in HP from the original and changed entities.
    *
