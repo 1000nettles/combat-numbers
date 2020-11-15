@@ -5,7 +5,11 @@ Combat Numbers is a FoundryVTT module which showcases bouncing combat numbers on
 * Show the numeric damage amount on a token when it takes damage
 * Show the numeric healing amount on a token when it gains HP
 
-Currently, this module is only for the DnD5e game system as one cannot choose the associated "HP" attribute in this module.
+## Supported Systems
+
+* [DnD5e](https://foundryvtt.com/packages/dnd5e/) (Dungeons and Dragons 5th Edition)
+* [PF2e](https://foundryvtt.com/packages/pf2e/) (Pathfinder 2nd Edition)
+* ...more to come!
 
 ## What Does This Look Like?
 
