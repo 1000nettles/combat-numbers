@@ -5,11 +5,6 @@ import AbstractCalculator from './abstractCalculator';
  * Used for any Token-specific calculations.
  */
 export default class TokenCalculator extends AbstractCalculator {
-  constructor() {
-    super();
-    this.hpAttributeAccessor = 'actorData.data.attributes.hp.value';
-  }
-
   /**
    * Get the differences in HP from the original and changed entities.
    * @param origEntity
@@ -21,8 +16,12 @@ export default class TokenCalculator extends AbstractCalculator {
    *   The numerical HP difference.
    */
   getHpDiff(origEntity, changedEntity) {
-    const origHp = _.get(origEntity, this.hpAttributeAccessor, null);
-    const newHp = _.get(changedEntity, this.hpAttributeAccessor, null);
+    // Our HP object path for tokens is prefixed by "actorData" on this
+    // change.
+    const hpObjectPath = this._getHpObjectPath();
+
+    const origHp = _.get(origEntity, hpObjectPath, null);
+    const newHp = _.get(changedEntity, hpObjectPath, null);
 
     if (origHp === null || newHp === null) {
       throw new ReferenceError('Cannot find original or new HP attributes');
@@ -31,5 +30,36 @@ export default class TokenCalculator extends AbstractCalculator {
     return (
       Number(origHp) - Number(newHp)
     );
+  }
+
+  /**
+   * Determine if the relevant HP data does not exist within the Token entity.
+   *
+   * If not, we should be coordinating using the relevant Actor instead.
+   *
+   * @param token
+   *   The Token Entity to check.
+   *
+   * @return {boolean}
+   *   If we should use Actor coordination instead.
+   */
+  shouldUseActorCoordination(token) {
+    const hpObjectPath = this._getHpObjectPath();
+
+    return (
+      _.get(token, hpObjectPath, null) === null
+    );
+  }
+
+  /**
+   * Get the HP object path for finding the HP property on an Entity.
+   *
+   * @return {string}
+   *   The HP object path.
+   *
+   * @private
+   */
+  _getHpObjectPath() {
+    return `actorData.${this.hpObjectPathFinder.getHpPath()}`;
   }
 }

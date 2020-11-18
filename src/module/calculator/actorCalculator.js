@@ -5,13 +5,6 @@ import AbstractCalculator from './abstractCalculator';
  * Used for any Actor-specific HP calculations.
  */
 export default class ActorCalculator extends AbstractCalculator {
-  constructor() {
-    super();
-
-    // Slime - this doesn't line up as nicely as we want.
-    this.hpAttributeAccessor = 'data.attributes.hp.value';
-  }
-
   /**
    * Get the differences in HP from the original and changed entities.
    *
@@ -27,8 +20,13 @@ export default class ActorCalculator extends AbstractCalculator {
    *   The numerical HP difference.
    */
   getHpDiff(origEntity, changedEntity) {
-    const changedEntityRawHpKey = 'data.attributes.hp.value';
-    const changedEntityTempHpKey = 'data.attributes.hp.temp';
+    const changedEntityRawHpKey = this.hpObjectPathFinder.getHpPath();
+    const changedEntityTempHpKey = this.hpObjectPathFinder.getHpTempPath();
+
+    // Within original Actor entities, the original entity is prefixed by
+    // another "data".
+    const origEntityRawHpKey = `data.${changedEntityRawHpKey}`;
+    const origEntityTempHpKey = `data.${changedEntityTempHpKey}`;
 
     // First, ensure that we even have any HP changes at all.
     if (
@@ -43,12 +41,12 @@ export default class ActorCalculator extends AbstractCalculator {
     const rawHpChanged = _.has(changedEntity, changedEntityRawHpKey);
 
     if (rawHpChanged) {
-      return Number(_.get(origEntity, 'data.data.attributes.hp.value', 0))
+      return Number(_.get(origEntity, origEntityRawHpKey, 0))
         - Number(_.get(changedEntity, changedEntityRawHpKey, 0));
     }
 
     // If we're not using raw HP, we're using temp HP instead.
-    return Number(_.get(origEntity, 'data.data.attributes.hp.temp', 0))
+    return Number(_.get(origEntity, origEntityTempHpKey, 0))
       - Number(_.get(changedEntity, changedEntityTempHpKey, 0));
   }
 }

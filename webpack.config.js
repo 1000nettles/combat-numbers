@@ -17,6 +17,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: './module.json', to: './' },
+        { from: './lang/*', to: './' },
       ],
     }),
   ],
