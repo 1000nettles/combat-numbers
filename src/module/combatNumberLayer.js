@@ -2,16 +2,24 @@ import { ease } from 'pixi-ease';
 import CombatNumberGenerator from './combatNumberGenerator';
 
 /* global CanvasLayer */
-/* global Note */
-/* global NoteConfig */
-/* global PlaceablesLayer */
-/* global PIXI */
+/* global game */
 /* global mergeObject */
 
 /**
  * A new layer which we can render combat numbers on.
  */
 export default class CombatNumberLayer extends CanvasLayer {
+  constructor() {
+    super();
+
+    /**
+     * Our module name.
+     *
+     * @type {string}
+     */
+    this.moduleName = 'combat-numbers';
+  }
+
   /**
    * Override the layer options to situate our layer.
    *
@@ -38,7 +46,9 @@ export default class CombatNumberLayer extends CanvasLayer {
    */
   addCombatNumber(number, x, y) {
     const combatNumberFactory = new CombatNumberGenerator(number);
-    const dmgNum = combatNumberFactory.generate();
+    const dmgNum = combatNumberFactory.generate(
+      this._shouldShowModifiers(),
+    );
 
     // Ensure we're anchoring to the center of the token.
     dmgNum.anchor.set(0.5);
@@ -73,5 +83,20 @@ export default class CombatNumberLayer extends CanvasLayer {
         });
       });
     });
+  }
+
+  /**
+   * If we should show the Combat Number modifiers or not.
+   *
+   * @return {boolean}
+   *   If we should show it.
+   *
+   * @private
+   */
+  _shouldShowModifiers() {
+    return !!(game.settings.get(
+      this.moduleName,
+      'show-modifiers',
+    ));
   }
 }

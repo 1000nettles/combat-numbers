@@ -11,13 +11,25 @@ export default class CombatNumberGenerator {
   /**
    * Generate the combat number. Will be generated as a PIXI Sprite.
    *
+   * @param {boolean} showModifier
+   *   If we should show the addition / subtraction modifiers.
+   *
    * @return {PIXI.Text}
    */
-  generate() {
+  generate(showModifier) {
     let finalAmount = this.amount;
 
     if (this.amount < 0) {
       finalAmount = Math.abs(this.amount);
+    }
+
+    // If we should show our addition / subtraction modifiers, add them in here.
+    if (showModifier) {
+      if (this.amount < 0) {
+        finalAmount = `-${finalAmount}`;
+      } else {
+        finalAmount = `+${finalAmount}`;
+      }
     }
 
     return new PIXI.Text(
@@ -33,7 +45,7 @@ export default class CombatNumberGenerator {
    * @private
    */
   _getTextStyle() {
-    let fill = '#aefab2';
+    let fill = '#95ed98';
 
     if (this.amount < 0) {
       fill = '#ffffff';

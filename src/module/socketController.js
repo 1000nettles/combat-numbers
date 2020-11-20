@@ -13,8 +13,25 @@ export default class SocketController {
    *   The current CombatNumberLayer instance.
    */
   constructor(game, layer) {
+    /**
+     * The current Game instance.
+     *
+     * @type {Game}
+     */
     this.game = game;
+
+    /**
+     * The current Layer.
+     *
+     * @type {CombatNumberLayer}
+     */
     this.layer = layer;
+
+    /**
+     * The name of our socket.
+     *
+     * @type {string}
+     */
     this.socketName = 'module.combat-numbers';
   }
 

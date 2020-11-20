@@ -1,7 +1,7 @@
 import ControlsGenerator from 'module/controlsGenerator';
+import State from '../../src/module/state';
 
 jest.mock('module/state');
-import State from "../../src/module/state";
 
 it('can throw an error when providing incorrect constructor arguments', () => {
   expect(() => {
