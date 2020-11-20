@@ -85,12 +85,13 @@ export default class HpObjectPathFinder {
       pathDefault = this.defaultHpPath;
     }
 
-    let value = this.settings.get(this.moduleName, settingsKey).trim();
+    let value = this.settings.get(this.moduleName, settingsKey);
 
     if (!value) {
       value = pathDefault;
     }
 
+    value = value.trim();
     value = `${this.prefix}.${value}`;
 
     return value;
