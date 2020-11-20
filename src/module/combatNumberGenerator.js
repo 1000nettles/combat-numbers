@@ -33,10 +33,10 @@ export default class CombatNumberGenerator {
    * @private
    */
   _getTextStyle() {
-    let fill = '#ffffff';
+    let fill = '#aefab2';
 
     if (this.amount < 0) {
-      fill = '#aefab2';
+      fill = '#ffffff';
     }
 
     return new PIXI.TextStyle({

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx webpack --config webpack.config.js",
     "lint": "npx eslint --fix ./src && npx eslint --fix ./tests",
-    "test": "jest --verbose ./tests",
+    "test": "jest --silent --verbose ./tests",
     "watch": "npx webpack --config webpack.config.js --watch"
   },
   "author": "",
