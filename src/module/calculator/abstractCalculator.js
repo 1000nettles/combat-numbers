@@ -10,9 +10,8 @@ import _ from 'lodash';
  * @abstract
  */
 export default class AbstractCalculator {
-  constructor() {
-    // Child classes MUST override this.
-    this.hpAttributeAccessor = '';
+  constructor(hpObjectPathFinder) {
+    this.hpObjectPathFinder = hpObjectPathFinder;
   }
 
   /**
@@ -23,16 +22,6 @@ export default class AbstractCalculator {
    */
   getHpDiff(origEntity, changedEntity) {
     throw new Error('Method \'getHpDiff()\' must be implemented.');
-  }
-
-  /**
-   * Get the relevant HP attribute accessor string.
-   *
-   * @return {string}
-   *   The relevant HP attribute accessor string.
-   */
-  getHpAttributeAccessor() {
-    return this.hpAttributeAccessor;
   }
 
   /**

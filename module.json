@@ -4,9 +4,12 @@
   "description": "Showcase bouncing combat numbers on tokens, similar to old-school JRPGs.",
   "version": "0.1.4",
   "author": "1000Nettles",
-  "systems": [
-    "dnd5e",
-    "pf2e"
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
   ],
   "esmodules": [
     "combat-numbers.js"

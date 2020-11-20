@@ -16,6 +16,7 @@ import TokenUpdateCoordinator from './module/tokenUpdateCoordinator';
 import ActorUpdateCoordinator from './module/actorUpdateCoordinator';
 import TokenCalculator from './module/calculator/tokenCalculator';
 import ActorCalculator from './module/calculator/actorCalculator';
+import HpObjectPathFinder from './module/hpObjectPathFinder';
 
 /* eslint no-console: ["error", { allow: ['warn', 'log', 'debug'] }] */
 /* global Hooks */
@@ -42,6 +43,16 @@ let actorUpdateCoordinator;
  */
 let tokenUpdateCoordinator;
 
+/**
+ * Our TokenCalculator instance for use within hooks.
+ */
+let tokenCalculator;
+
+/**
+ * Our ActorCalculator instance for use within hooks.
+ */
+let actorCalculator;
+
 /* ------------------------------------ */
 /* Initialize module                    */
 /* ------------------------------------ */
@@ -58,22 +69,27 @@ Hooks.once('init', async () => {
  * This happens every time a scene change takes place, hence the `on`.
  */
 Hooks.on('canvasReady', () => {
+  const hpObjectPathFinder = new HpObjectPathFinder(game.settings);
   layer = new CombatNumberLayer();
   canvas.tokens.combatNumber = canvas.tokens.addChild(layer);
 
   socketController = new SocketController(game, layer);
   actorUpdateCoordinator = new ActorUpdateCoordinator();
   tokenUpdateCoordinator = new TokenUpdateCoordinator();
+
+  tokenCalculator = new TokenCalculator(hpObjectPathFinder);
+  actorCalculator = new ActorCalculator(hpObjectPathFinder);
+
   actorUpdateCoordinator = new ActorUpdateCoordinator(
     game.scenes,
     layer,
     socketController,
-    new ActorCalculator(),
+    actorCalculator,
   );
   tokenUpdateCoordinator = new TokenUpdateCoordinator(
     layer,
     socketController,
-    new TokenCalculator(),
+    tokenCalculator,
   );
 });
 
@@ -107,7 +123,7 @@ Hooks.on('preUpdateToken', (scene, entity, delta, audit) => {
   // it from the `game` object's relevant actor. This can take place if a token
   // has been dragged to the scene and has not been populated yet with all its
   // data in some systems. (For example, PF2E.)
-  if (tokenUpdateCoordinator.shouldUseActorCoordination(entity)) {
+  if (tokenCalculator.shouldUseActorCoordination(entity)) {
     const actorId = _.get(entity, 'actorId', null);
     const actorData = _.get(delta, 'actorData', null);
 

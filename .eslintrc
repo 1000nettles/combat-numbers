@@ -1,8 +1,15 @@
 {
   "parser": "babel-eslint",
   "extends": ["airbnb"],
+  "overrides": [
+    {
+      "files": ["**/*.test.js"],
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"]
+    }
+  ],
   "rules": {
     "class-methods-use-this": "off",
+    "import/no-unresolved": "off",
     "no-underscore-dangle": "off",
     "no-restricted-syntax": "off"
   }

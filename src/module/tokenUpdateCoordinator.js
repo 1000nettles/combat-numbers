@@ -71,23 +71,6 @@ export default class TokenUpdateCoordinator {
   }
 
   /**
-   * Determine if the relevant HP data does not exist within the Token entity.
-   *
-   * If not, we should be coordinating using the relevant Actor instead.
-   *
-   * @param token
-   *   The Token Entity to check.
-   *
-   * @return {boolean}
-   *   If we should use Actor coordination instead.
-   */
-  shouldUseActorCoordination(token) {
-    return (
-      _.get(token, 'actorData.data.attributes.hp.value', null) === null
-    );
-  }
-
-  /**
    * Clean up any queued updates pertaining to the provided Entity ID.
    *
    * @param entityId
