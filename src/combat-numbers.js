@@ -24,16 +24,6 @@ import HpObjectPathFinder from './module/hpObjectPathFinder';
 /* global canvas */
 
 /**
- * Our SocketController instance for use within hooks.
- */
-let socketController;
-
-/**
- * Our CombatNumberLayer instance for use within hooks.
- */
-let layer;
-
-/**
  * Our ActorUpdateCoordinator instance for use within hooks.
  */
 let actorUpdateCoordinator;
@@ -68,12 +58,13 @@ Hooks.once('init', async () => {
  *
  * This happens every time a scene change takes place, hence the `on`.
  */
-Hooks.on('canvasReady', () => {
+Hooks.on('canvasReady', async () => {
   const hpObjectPathFinder = new HpObjectPathFinder(game.settings);
-  layer = new CombatNumberLayer();
+  const layer = new CombatNumberLayer();
   canvas.tokens.combatNumber = canvas.tokens.addChild(layer);
 
-  socketController = new SocketController(game, layer);
+  const socketController = new SocketController(game, layer);
+
   actorUpdateCoordinator = new ActorUpdateCoordinator();
   tokenUpdateCoordinator = new TokenUpdateCoordinator();
 
@@ -91,9 +82,7 @@ Hooks.on('canvasReady', () => {
     socketController,
     tokenCalculator,
   );
-});
 
-Hooks.on('ready', async () => {
   await socketController.init();
 });
 

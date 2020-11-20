@@ -82,7 +82,7 @@ export default class SocketController {
   /**
    * Determine if we should show the combat numbers on the provided scene ID.
    *
-   * This checks if the current user is viewing the appropriate scene or not.
+   * This checks if the current user is viewing the associated scene or not.
    *
    * @param {string} sceneId
    *   The provided scene ID that the action took place on.
@@ -93,15 +93,6 @@ export default class SocketController {
    * @private
    */
   _shouldShowInScene(sceneId) {
-    let show = false;
-
-    for (const value of this.game.scenes) {
-      if (value._id === sceneId && value._view === true) {
-        show = true;
-        break;
-      }
-    }
-
-    return show;
+    return (this.game.user.viewedScene === sceneId);
   }
 }
