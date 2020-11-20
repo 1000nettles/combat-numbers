@@ -18,6 +18,7 @@ Thanks to [Neutral Party](https://www.patreon.com/neutralparty) for the sample b
 ## Supported Systems
 
 * [DnD5e](https://foundryvtt.com/packages/dnd5e/) (Dungeons and Dragons 5th Edition)
+* [D35E](https://foundryvtt.com/packages/D35E/) (3.5 SRD)
 * [PF2e](https://foundryvtt.com/packages/pf2e/) (Pathfinder 2nd Edition)
 * [PF1](https://foundryvtt.com/packages/pf1/) (Pathfinder 1)
 
