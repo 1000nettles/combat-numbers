@@ -28,6 +28,15 @@ export default class SocketController {
   }
 
   /**
+   * Deactivate the currently open socket.
+   *
+   * @return {Promise<void>}
+   */
+  async deactivate() {
+    await this._removeListener();
+  }
+
+  /**
    * Emit an event to our module's socket.
    *
    * Specifically, this will emit data to construct and show a combat number.
@@ -77,6 +86,17 @@ export default class SocketController {
         Number(data.y),
       );
     });
+  }
+
+  /**
+   * Remove the associated socket listener.
+   *
+   * @return {Promise<void>}
+   *
+   * @private
+   */
+  async _removeListener() {
+    this.game.socket.off(this.socketName);
   }
 
   /**
