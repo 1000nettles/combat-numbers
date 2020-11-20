@@ -43,7 +43,8 @@ export default class TokenUpdateCoordinator {
     const entity = this.queuedUpdates.get(delta._id);
 
     if (!entity) {
-      // Throw an error here?
+      // We may not have created an update queued previously, due to a
+      // lightweight update or something else. Just cleanup and exit.
       this._cleanQueuedUpdates(entityId);
       return;
     }

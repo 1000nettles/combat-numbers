@@ -128,8 +128,10 @@ Hooks.on('preUpdateToken', (scene, entity, delta, audit) => {
     const actorId = _.get(entity, 'actorId', null);
     const actorData = _.get(delta, 'actorData', null);
 
+    // If we don't even have the appropriate data to use, just exit. This
+    // could happen if a "lightweight" update has taken place, and someone is
+    // just updating specific Token attributes.
     if (actorId === null || actorData === null) {
-      console.warn('combat-numbers | Malformed token and delta data in `preUpdateToken` hook');
       return;
     }
 
