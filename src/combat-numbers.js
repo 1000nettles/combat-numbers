@@ -17,11 +17,15 @@ import ActorUpdateCoordinator from './module/actorUpdateCoordinator';
 import TokenCalculator from './module/calculator/tokenCalculator';
 import ActorCalculator from './module/calculator/actorCalculator';
 import HpObjectPathFinder from './module/hpObjectPathFinder';
+import ControlsGenerator from './module/controlsGenerator';
+import State from './module/state';
 
-/* eslint no-console: ["error", { allow: ['warn', 'log', 'debug'] }] */
+/* eslint no-console: ['error', { allow: ['warn', 'log', 'debug'] }] */
+/* global Canvas */
 /* global Hooks */
 /* global game */
 /* global canvas */
+/* global mergeObject */
 
 /**
  * Our SocketController instance for use within hooks.
@@ -48,6 +52,22 @@ let tokenCalculator;
  */
 let actorCalculator;
 
+/**
+ * Our State instance for use within hooks.
+ */
+let state;
+
+/**
+ * Register the Combat Numbers later into the Canvas static layers.
+ */
+function registerLayer() {
+  const layers = mergeObject(Canvas.layers, {
+    combatNumbers: CombatNumberLayer,
+  });
+  Object.defineProperty(Canvas, 'layers', {
+    get: () => layers,
+  });
+}
 /* ------------------------------------ */
 /* Initialize module                    */
 /* ------------------------------------ */
@@ -56,6 +76,9 @@ Hooks.once('init', async () => {
 
   // Register custom module settings.
   registerSettings();
+  registerLayer();
+
+  state = new State();
 });
 
 /**
@@ -64,8 +87,7 @@ Hooks.once('init', async () => {
  * This happens every time a scene change takes place, hence the `on`.
  */
 Hooks.on('canvasReady', async () => {
-  const layer = new CombatNumberLayer();
-  canvas.tokens.combatNumber = canvas.tokens.addChild(layer);
+  const layer = canvas.combatNumbers;
 
   // Ensure that we only have a single socket open for our module so we don't
   // clutter up open sockets when changing scenes (or, more specifically,
@@ -101,6 +123,7 @@ Hooks.on('canvasReady', async () => {
 Hooks.on('preUpdateActor', (entity, delta, audit) => {
   if (
     !_.get(audit, 'diff')
+    || !state.getIsVisible()
   ) {
     return;
   }
@@ -116,6 +139,7 @@ Hooks.on('preUpdateToken', (scene, entity, delta, audit) => {
   if (
     !_.get(audit, 'diff')
     || _.get(entity, 'hidden')
+    || !state.getIsVisible()
   ) {
     return;
   }
@@ -158,9 +182,15 @@ Hooks.on('updateToken', (scene, entity, delta, audit) => {
   if (
     !_.get(audit, 'diff')
     || _.get(entity, 'hidden')
+    || !state.getIsVisible()
   ) {
     return;
   }
 
   tokenUpdateCoordinator.coordinateUpdate(scene, delta);
+});
+
+Hooks.on('getSceneControlButtons', (controls) => {
+  const controlsGenerator = new ControlsGenerator(state);
+  controlsGenerator.generate(controls, game.user.isGM);
 });

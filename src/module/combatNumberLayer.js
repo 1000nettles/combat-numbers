@@ -1,25 +1,39 @@
 import { ease } from 'pixi-ease';
 import CombatNumberGenerator from './combatNumberGenerator';
 
+/* global CanvasLayer */
+/* global Note */
+/* global NoteConfig */
 /* global PlaceablesLayer */
+/* global PIXI */
+/* global mergeObject */
 
 /**
  * A new layer which we can render combat numbers on.
  */
-export default class CombatNumberLayer extends PlaceablesLayer {
-  constructor() {
-    super();
-    this.sortableChildren = true;
+export default class CombatNumberLayer extends CanvasLayer {
+  /**
+   * Override the layer options to situate our layer.
+   *
+   * @return {*}
+   */
+  static get layerOptions() {
+    return mergeObject(super.layerOptions, {
+      canDragCreate: false,
+      // This will set the combat numbers above the effects layer, but below
+      // the controls layer.
+      zIndex: 350,
+    });
   }
 
   /**
    * Add a combat number at the specified position.
    *
-   * @param number
+   * @param {Number} number
    *   The number to display.
-   * @param x
+   * @param {Number} x
    *   The X coordinate.
-   * @param y
+   * @param {Number} y
    *   The Y coordinate.
    */
   addCombatNumber(number, x, y) {

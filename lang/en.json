@@ -1,4 +1,6 @@
 {
+    "COMBATNUMBERS.CONTROLS.title": "Combat Numbers",
+    "COMBATNUMBERS.CONTROLS.TOOLS.visibility": "Visibility",
     "COMBATNUMBERS.SETTINGS.hpObjectPathName": "HP Object Path",
     "COMBATNUMBERS.SETTINGS.hpObjectPathHint": "⚠️ For advanced users. This is the object path which is used to locate the \"HP\" attribute within the Actor or Token Entity objects. Each child property is traversed via a \".\". Leave blank to use the default for many game systems (which is \"attributes.hp.value\")",
     "COMBATNUMBERS.SETTINGS.tempHpObjectPathName": "Temporary HP Object Path",

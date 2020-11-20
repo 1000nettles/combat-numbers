@@ -1,12 +1,12 @@
 import AbstractCalculator from 'module/calculator/abstractCalculator';
+import HpObjectPathFinder from 'module/hpObjectPathFinder';
 
 jest.mock('module/hpObjectPathFinder');
-import HpObjectPathFinder from 'module/hpObjectPathFinder';
 
 const mockHpObjectPathFinder = new HpObjectPathFinder();
 
 // Add an implementation of the abstract class for us to test with.
-let TestCalculator = class TestCalculator extends AbstractCalculator {
+const TestCalculator = class TestCalculator extends AbstractCalculator {
   _getOrigEntityHpPath() {
     return 'origentitypath';
   }
@@ -26,10 +26,10 @@ let TestCalculator = class TestCalculator extends AbstractCalculator {
 
 it('can throw an error when providing incorrect constructor arguments', () => {
   expect(() => {
-    const testCalculator = new TestCalculator({});
+    new TestCalculator({});
   }).toThrow(new Error('Required `hpObjectPathFinder` is not instance of HpObjectPathFinder'));
   expect(() => {
-    const testCalculator = new TestCalculator();
+    new TestCalculator();
   }).toThrow(new Error('Required `hpObjectPathFinder` is not instance of HpObjectPathFinder'));
 });
 
@@ -40,14 +40,14 @@ it('can calculate the actor coordinates', () => {
     center: {
       x: 1,
       y: 2,
-    }
+    },
   };
 
   const result = testCalculator.getCoordinates(scene, entity);
   expect(result).toEqual({
     x: 1,
     y: 2,
-  })
+  });
 });
 
 it('can calculate the token coordinates', () => {
@@ -55,7 +55,7 @@ it('can calculate the token coordinates', () => {
   const scene = {
     data: {
       grid: 10,
-    }
+    },
   };
 
   const token = {
@@ -63,14 +63,14 @@ it('can calculate the token coordinates', () => {
     y: 2,
     width: 6,
     height: 2,
-  }
+  };
 
   const result = testCalculator.getCoordinates(scene, token);
 
   expect(result).toEqual({
     x: 31,
     y: 12,
-  })
+  });
 });
 
 it('can throw an error if no hp has changed and checking hp diff', () => {
@@ -79,7 +79,7 @@ it('can throw an error if no hp has changed and checking hp diff', () => {
   expect(() => {
     testCalculator.getHpDiff({}, {});
   })
-  .toThrowError(new ReferenceError('Cannot find any changed HP or HP temp attributes.'));
+    .toThrow(new ReferenceError('Cannot find any changed HP or HP temp attributes.'));
 });
 
 it('can calculate an hp diff', () => {
