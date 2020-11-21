@@ -30,18 +30,22 @@ Install the module, enabled it for your world, and voila! Any token or actor whi
 
 The manifest URL for manual installation is: https://github.com/1000nettles/combat-numbers/releases/latest/download/module.json
 
+## Settings
+
+* **Show Addition / Subtraction Modifiers:** If enabled, it will show a "-" in front of a Combat Number when dealing damage, or show a "+" when healing.
+* **HP Object Path:** See the section below.
+* **Temporary HP Object Path:** See the section below.
+
 ## Advanced Customization for Unsupported Systems
 
 Currently, it's tough to support every popular system out there for Foundry. In the module settings, you can specify "HP Object Path" and "Temporary HP Object Path". Some Foundry VTT systems support HP in a slightly different object structure. If you know how Actor and Token entities structure their data for the HP and temp HP attributes, you can specify this here.
 
 For example, the default HP Object Path for the DnD5e system is `attributes.hp.value`. For the Old-School Essentials system, it is `hp.value`.
 
-Plans are in the works to document these settings for other systems.  
+Plans are in the works to document these settings for other systems.
 
 ## Future Planned Features
 
-* Ability to specify the specific attribute for the combat numbers displayed
 * Ability to change font, including size and colour
 * Different animations instead of just a basic bounce
 * ...please suggest some!
-

@@ -14,9 +14,6 @@
   "esmodules": [
     "combat-numbers.js"
   ],
-  "styles": [
-    "combat-numbers.css"
-  ],
   "socket": true,
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "0.7.7",
