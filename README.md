@@ -42,7 +42,7 @@ Currently, it's tough to support every popular system out there for Foundry. In 
 
 For example, the default HP Object Path for the DnD5e system is `attributes.hp.value`. For the Old-School Essentials system, it is `hp.value`.
 
-Plans are in the works to document these settings for other systems.
+[Please see our Wiki for details on already documented systems.](https://github.com/1000nettles/combat-numbers/wiki/Advanced-Customization-for-Unsupported-Systems)
 
 ## Future Planned Features
 
