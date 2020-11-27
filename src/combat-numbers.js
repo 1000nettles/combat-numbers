@@ -58,9 +58,19 @@ let actorCalculator;
 let state;
 
 /**
- * Register the Combat Numbers later into the Canvas static layers.
+ * If our current Foundry's Canvas class is using statically stored layers.
+ *
+ * This is a large change between Foundry versions so we depend on this for
+ * how we register our CombatNumbersLayer.
+ *
+ * @type {boolean}
  */
-function registerLayer() {
+let isUsingStaticLayers = true;
+
+/**
+ * Register the Combat Numbers layer into the Canvas' static layers.
+ */
+function registerStaticLayer() {
   const layers = mergeObject(Canvas.layers, {
     combatNumbers: CombatNumberLayer,
   });
@@ -68,17 +78,34 @@ function registerLayer() {
     get: () => layers,
   });
 }
+
 /* ------------------------------------ */
 /* Initialize module                    */
 /* ------------------------------------ */
 Hooks.once('init', async () => {
   console.log('combat-numbers | Initializing combat-numbers');
 
+  // This is important for later layer retrieval and manipulation.
+  isUsingStaticLayers = !_.isNil(Canvas.layers);
+
   // Register custom module settings.
   registerSettings();
-  registerLayer();
+
+  if (isUsingStaticLayers) {
+    registerStaticLayer();
+  }
 
   state = new State();
+});
+
+Hooks.on('canvasInit', (canvas) => {
+  // We only hook into this for non-static layer adding.
+  if (isUsingStaticLayers) {
+    return;
+  }
+
+  /* eslint-disable-next-line no-param-reassign */
+  canvas.combatNumbers = canvas.stage.addChildAt(new CombatNumberLayer(), 12);
 });
 
 /**
@@ -87,7 +114,7 @@ Hooks.once('init', async () => {
  * This happens every time a scene change takes place, hence the `on`.
  */
 Hooks.on('canvasReady', async () => {
-  const layer = canvas.combatNumbers;
+  const layer = canvas.layers.find((targetLayer) => targetLayer instanceof CombatNumberLayer);
 
   // Ensure that we only have a single socket open for our module so we don't
   // clutter up open sockets when changing scenes (or, more specifically,
@@ -97,9 +124,6 @@ Hooks.on('canvasReady', async () => {
   }
 
   socketController = new SocketController(game, layer);
-
-  actorUpdateCoordinator = new ActorUpdateCoordinator();
-  tokenUpdateCoordinator = new TokenUpdateCoordinator();
 
   const hpObjectPathFinder = new HpObjectPathFinder(game.settings);
   tokenCalculator = new TokenCalculator(hpObjectPathFinder);
