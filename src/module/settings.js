@@ -1,6 +1,16 @@
 /* global game */
+/* global window */
 
 export default () => {
+  game.settings.register('combat-numbers', 'show-controls', {
+    name: game.i18n.localize('COMBATNUMBERS.SETTINGS.showControlsName'),
+    hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.showControlsHint'),
+    scope: 'client',
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: () => window.location.reload(),
+  });
   game.settings.register('combat-numbers', 'show-modifiers', {
     name: game.i18n.localize('COMBATNUMBERS.SETTINGS.showModifiersName'),
     hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.showModifiersHint'),

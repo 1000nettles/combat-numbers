@@ -68,6 +68,13 @@ let state;
 let isUsingStaticLayers = true;
 
 /**
+ * The name of our module.
+ *
+ * @type {string}
+ */
+const moduleName = 'combat-numbers';
+
+/**
  * Register the Combat Numbers layer into the Canvas' static layers.
  */
 function registerStaticLayer() {
@@ -215,6 +222,15 @@ Hooks.on('updateToken', (scene, entity, delta, audit) => {
 });
 
 Hooks.on('getSceneControlButtons', (controls) => {
+  const showControls = !!(game.settings.get(
+    moduleName,
+    'show-controls',
+  ));
+
   const controlsGenerator = new ControlsGenerator(state);
-  controlsGenerator.generate(controls, game.user.isGM);
+  controlsGenerator.generate(
+    controls,
+    game.user.isGM,
+    showControls,
+  );
 });

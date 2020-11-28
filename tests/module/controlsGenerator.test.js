@@ -16,7 +16,16 @@ it('should not add controls if user is not the GM', () => {
   const state = new State();
   const controlsGenerator = new ControlsGenerator(state);
   const controls = [];
-  controlsGenerator.generate(controls, false);
+  controlsGenerator.generate(controls, false, true);
+
+  expect(controls).toEqual([]);
+});
+
+it('should not add controls if user has requested to not add controls', () => {
+  const state = new State();
+  const controlsGenerator = new ControlsGenerator(state);
+  const controls = [];
+  controlsGenerator.generate(controls, true, false);
 
   expect(controls).toEqual([]);
 });

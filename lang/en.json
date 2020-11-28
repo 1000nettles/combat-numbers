@@ -1,6 +1,8 @@
 {
     "COMBATNUMBERS.CONTROLS.title": "Combat Numbers",
     "COMBATNUMBERS.CONTROLS.TOOLS.visibility": "Visibility",
+    "COMBATNUMBERS.SETTINGS.showControlsName": "Show Canvas Layer Controls",
+    "COMBATNUMBERS.SETTINGS.showControlsHint": "Shows the Canvas Layers Controls button and its tools. Denoted as a '#'.",
     "COMBATNUMBERS.SETTINGS.showModifiersName": "Show Addition / Subtraction Modifiers",
     "COMBATNUMBERS.SETTINGS.showModifiersHint": "Shows a \"-\" in front of a Combat Number when damage is dealt, or shows a \"+\" when healed.",
     "COMBATNUMBERS.SETTINGS.hpObjectPathName": "HP Object Path",

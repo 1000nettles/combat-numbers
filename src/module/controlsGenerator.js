@@ -16,10 +16,14 @@ export default class ControlsGenerator {
    * Generate the toolbar controls.
    *
    * @param {Object} controls
+   *   The game's controls object.
    * @param {Boolean} isGm
+   *   If the current user is a GM.
+   * @param {Boolean} showControls
+   *   If we should show the canvas layer controls for Combat Numbers.
    */
-  generate(controls, isGm) {
-    if (!isGm) {
+  generate(controls, isGm, showControls) {
+    if (!isGm || !showControls) {
       return;
     }
 
