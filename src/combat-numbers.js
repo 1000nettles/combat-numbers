@@ -7,7 +7,6 @@
  * Software License: MIT
  */
 
-// Import JavaScript modules
 import _ from 'lodash';
 import registerSettings from './module/settings';
 import CombatNumberLayer from './module/combatNumberLayer';
@@ -38,7 +37,7 @@ let socketController;
 let actorUpdateCoordinator;
 
 /**
- * Our TokenUpdateCoordinator instance for use within hooks.
+ * Our TokenUpdastate.test.jsteCoordinator instance for use within hooks.
  */
 let tokenUpdateCoordinator;
 
@@ -130,7 +129,7 @@ Hooks.on('canvasReady', async () => {
     await socketController.deactivate();
   }
 
-  socketController = new SocketController(game, layer);
+  socketController = new SocketController(game.socket, game.user, state, layer);
 
   const hpObjectPathFinder = new HpObjectPathFinder(game.settings);
   tokenCalculator = new TokenCalculator(hpObjectPathFinder);
@@ -152,10 +151,7 @@ Hooks.on('canvasReady', async () => {
 });
 
 Hooks.on('preUpdateActor', (entity, delta, audit) => {
-  if (
-    !_.get(audit, 'diff')
-    || !state.getIsVisible()
-  ) {
+  if (!_.get(audit, 'diff')) {
     return;
   }
 
@@ -170,7 +166,6 @@ Hooks.on('preUpdateToken', (scene, entity, delta, audit) => {
   if (
     !_.get(audit, 'diff')
     || _.get(entity, 'hidden')
-    || !state.getIsVisible()
   ) {
     return;
   }
@@ -213,7 +208,6 @@ Hooks.on('updateToken', (scene, entity, delta, audit) => {
   if (
     !_.get(audit, 'diff')
     || _.get(entity, 'hidden')
-    || !state.getIsVisible()
   ) {
     return;
   }

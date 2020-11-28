@@ -1,6 +1,6 @@
 {
     "COMBATNUMBERS.CONTROLS.title": "Combat Numbers",
-    "COMBATNUMBERS.CONTROLS.TOOLS.visibility": "Visibility",
+    "COMBATNUMBERS.CONTROLS.TOOLS.pauseBroadcast": "Pause Broadcasting",
     "COMBATNUMBERS.SETTINGS.showControlsName": "Show Canvas Layer Controls",
     "COMBATNUMBERS.SETTINGS.showControlsHint": "Shows the Canvas Layers Controls button and its tools. Denoted as a '#'.",
     "COMBATNUMBERS.SETTINGS.showModifiersName": "Show Addition / Subtraction Modifiers",

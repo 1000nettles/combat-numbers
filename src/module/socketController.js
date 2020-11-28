@@ -7,18 +7,36 @@ export default class SocketController {
   /**
    * SocketController constructor.
    *
-   * @param {Game} game
-   *   The current Game instance.
+   * @param {Socket} socket
+   *   The current Socket instance.
+   * @param {User} user
+   *   The current User instance.
+   * @param {State} state
+   *   The current User instance.
    * @param {CombatNumberLayer} layer
    *   The current CombatNumberLayer instance.
    */
-  constructor(game, layer) {
+  constructor(socket, user, state, layer) {
     /**
-     * The current Game instance.
+     * The current WebSocket instance.
      *
-     * @type {Game}
+     * @type {WebSocket}
      */
-    this.game = game;
+    this.socket = socket;
+
+    /**
+     * The current WebSocket instance.
+     *
+     * @type {User}
+     */
+    this.user = user;
+
+    /**
+     * The current State instance.
+     *
+     * @type {State}
+     */
+    this.state = state;
 
     /**
      * The current Layer.
@@ -70,9 +88,13 @@ export default class SocketController {
    * @return {Promise<void>}
    */
   async emit(number, x, y, sceneId) {
+    if (this.state.getIsPauseBroadcast()) {
+      return;
+    }
+
     console.debug(`combat-numbers | Emitting to ${this.socketName}`);
 
-    this.game.socket.emit(
+    this.socket.emit(
       this.socketName,
       {
         number, x, y, sceneId,
@@ -90,7 +112,7 @@ export default class SocketController {
    * @private
    */
   async _listen() {
-    this.game.socket.on(this.socketName, async (data) => {
+    this.socket.on(this.socketName, async (data) => {
       console.debug(`combat-numbers | Emission received on ${this.socketName}`);
 
       if (!this._shouldShowInScene(data.sceneId)) {
@@ -113,7 +135,7 @@ export default class SocketController {
    * @private
    */
   async _removeListener() {
-    this.game.socket.off(this.socketName);
+    this.socket.off(this.socketName);
   }
 
   /**
@@ -130,6 +152,6 @@ export default class SocketController {
    * @private
    */
   _shouldShowInScene(sceneId) {
-    return (this.game.user.viewedScene === sceneId);
+    return (this.user.viewedScene === sceneId);
   }
 }

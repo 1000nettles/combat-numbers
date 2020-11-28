@@ -1,13 +1,14 @@
 import State from 'module/state';
 
-it('should get the current visibility state', () => {
-  // Default is also `true`.
+it('should get the current pause broadcast state', () => {
   const state = new State();
-  expect(state.getIsVisible()).toBeTruthy();
+
+  // Default is `false`.
+  expect(state.getIsPauseBroadcast()).toBeFalsy();
 });
 
-it('should accept a new visibility state', () => {
+it('should accept a new pause broadcast state', () => {
   const state = new State();
-  state.setIsVisible(false);
-  expect(state.getIsVisible()).toBeFalsy();
+  state.setIsPauseBroadcast(true);
+  expect(state.getIsPauseBroadcast()).toBeTruthy();
 });

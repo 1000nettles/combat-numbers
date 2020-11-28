@@ -34,14 +34,14 @@ export default class ControlsGenerator {
       layer: 'CombatNumberLayer',
       tools: [
         {
-          name: 'visibility',
-          title: 'COMBATNUMBERS.CONTROLS.TOOLS.visibility',
-          icon: 'fas fa-eye-slash',
-          active: !this.state.getIsVisible(),
+          name: 'pause-broadcast',
+          title: 'COMBATNUMBERS.CONTROLS.TOOLS.pauseBroadcast',
+          icon: 'fas fa-pause-circle',
+          active: this.state.getIsPauseBroadcast(),
           toggle: true,
           onClick: () => {
-            this.state.setIsVisible(
-              !this.state.getIsVisible(),
+            this.state.setIsPauseBroadcast(
+              !this.state.getIsPauseBroadcast(),
             );
           },
         },

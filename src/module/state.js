@@ -3,24 +3,24 @@
  */
 export default class State {
   constructor() {
-    this.isVisible = true;
+    this.isPauseBroadcast = false;
   }
 
   /**
-   * If Combat Numbers should be visible / rendered.
+   * If Combat Numbers should pause broadcasting combat numbers to other users.
    *
    * @return {boolean}
    */
-  getIsVisible() {
-    return this.isVisible;
+  getIsPauseBroadcast() {
+    return this.isPauseBroadcast;
   }
 
   /**
-   * Set the visibility state.
+   * Set the Pause Broadcast state.
    *
    * @param {Boolean} value
    */
-  setIsVisible(value) {
-    this.isVisible = !!value;
+  setIsPauseBroadcast(value) {
+    this.isPauseBroadcast = !!value;
   }
 }

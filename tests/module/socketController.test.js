@@ -1,24 +1,25 @@
 import SocketController from 'module/socketController';
 
-let mockGame;
+let mockSocket;
+let mockUser;
+let mockState;
 let mockLayer;
 let socketController;
 
 beforeEach(() => {
-  mockGame = {};
-  mockGame.socket = {};
-  mockGame.user = {};
-
+  mockSocket = {};
+  mockUser = {};
+  mockState = {};
   mockLayer = {};
 
-  socketController = new SocketController(mockGame, mockLayer);
+  socketController = new SocketController(mockSocket, mockUser, mockState, mockLayer);
 });
 
 it('should initialize the socket listener and should not show in scene', async () => {
-  mockGame.user.viewedScene = 'not_a_viewed_scene';
+  mockUser.viewedScene = 'not_a_viewed_scene';
   let socketOnArgs;
 
-  mockGame.socket.on = jest.fn((...args) => {
+  mockSocket.on = jest.fn((...args) => {
     socketOnArgs = args;
     const data = {
       sceneId: 'a_scene_id',
@@ -45,9 +46,9 @@ it('should initialize the socket listener and should show in scene', async () =>
   const x = 1;
   const y = 1;
 
-  mockGame.user.viewedScene = 'a_scene_id';
+  mockUser.viewedScene = 'a_scene_id';
 
-  mockGame.socket.on = jest.fn((...args) => {
+  mockSocket.on = jest.fn((...args) => {
     socketOnArgs = args;
     const data = {
       sceneId: 'a_scene_id',
@@ -73,10 +74,42 @@ it('should initialize the socket listener and should show in scene', async () =>
 });
 
 it('should deactivate the socket listener', async () => {
-  mockGame.socket.off = jest.fn();
+  mockSocket.off = jest.fn();
 
   await socketController.deactivate();
 
-  expect(mockGame.socket.off).toHaveBeenCalledTimes(1);
-  expect(mockGame.socket.off).toHaveBeenCalledWith('module.combat-numbers');
+  expect(mockSocket.off).toHaveBeenCalledTimes(1);
+  expect(mockSocket.off).toHaveBeenCalledWith('module.combat-numbers');
+});
+
+it('should not emit to socket if broadcasting is paused', async () => {
+  mockState.getIsPauseBroadcast = () => true;
+  mockSocket.on = jest.fn();
+  mockSocket.emit = jest.fn();
+
+  await socketController.init();
+  await socketController.emit();
+
+  expect(mockSocket.emit).not.toHaveBeenCalled();
+});
+
+it('should emit to socket', async () => {
+  const number = 1234;
+  const x = 1;
+  const y = 1;
+  const sceneId = 'a_scene_id';
+
+  mockState.getIsPauseBroadcast = () => false;
+  mockSocket.on = jest.fn();
+  mockSocket.emit = jest.fn();
+
+  await socketController.init();
+  await socketController.emit(number, x, y, sceneId);
+
+  const expectedPayload = [
+    'module.combat-numbers',
+    { number, x, y, sceneId }
+  ];
+
+  expect(mockSocket.emit).toHaveBeenCalledWith(...expectedPayload);
 });
