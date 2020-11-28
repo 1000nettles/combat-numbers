@@ -1,7 +1,8 @@
 # Combat Numbers
 
-![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v0.2.1.zip)
-![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers)
+![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v0.2.1.zip?style=flat-square)
+![Issues](https://img.shields.io/github/issues/1000nettles/combat-numbers?style=flat-square)
+![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers?style=flat-square)
 
 Combat Numbers is a FoundryVTT module which showcases bouncing combat numbers on tokens, similar to old-school JRPGs. It currently has very basic functionality:
 
