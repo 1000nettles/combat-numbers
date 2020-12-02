@@ -1,30 +1,34 @@
 /* eslint no-console: ["error", { allow: ['warn', 'log', 'debug'] }] */
 
+import Renderer from './renderer';
+import SocketController from './socketController';
+
 /**
  * Coordinate any Actor updates from the Foundry Hook system.
  */
 export default class ActorUpdateCoordinator {
-  constructor(scenes, layer, socketController, calculator) {
-    this.scenes = scenes;
-    this.layer = layer;
+  constructor(renderer, socketController, calculator, state) {
+    this.renderer = renderer;
     this.socketController = socketController;
     this.calculator = calculator;
+    this.state = state;
   }
 
   /**
    * Coordinate the pre-update functionality.
    *
-   * @param {Object} entity
+   * @param {Entity} entity
    *   The entity object about to be updated.
    * @param {Object} delta
    *   The provided delta of the Actor data.
    * @param {Array} tokens
    *   The associated Tokens which need updating that are associated to the
    *   Actor.
+   * @param {Scene} scene
+   *   The current scene where the pre-update is taking place.
    */
-  coordinatePreUpdate(entity, delta, tokens) {
+  coordinatePreUpdate(entity, delta, tokens, scene) {
     let hpDiff;
-    let currentScene;
 
     try {
       hpDiff = this.calculator.getHpDiff(entity, delta);
@@ -38,25 +42,34 @@ export default class ActorUpdateCoordinator {
       return;
     }
 
-    // Determine the current scene for emission later.
-    for (const value of this.scenes) {
-      if (value._view === true) {
-        currentScene = value;
-        break;
-      }
-    }
-
-    if (!currentScene) {
-      console.warn(
-        'combat-numbers | Could not find current scene when rendering',
-      );
-      return;
-    }
-
     tokens.forEach((token) => {
-      const coords = this.calculator.getCoordinates(currentScene, token);
-      this.layer.addCombatNumber(hpDiff, coords.x, coords.y);
-      this.socketController.emit(hpDiff, coords.x, coords.y, currentScene._id);
+      const coords = this.calculator.getCoordinates(scene, token);
+
+      if (this.state.getIsMask()) {
+        const maskedType = (hpDiff < 0)
+          ? Renderer.maskedTypes.TYPE_DAMAGE
+          : Renderer.maskedTypes.TYPE_HEAL;
+
+        this.renderer.processMaskedAndRender(maskedType, coords.x, coords.y);
+        this.socketController.emit(
+          maskedType,
+          SocketController.emitTypes.TYPE_MASKED,
+          coords.x,
+          coords.y,
+          scene._id,
+        );
+
+        return;
+      }
+
+      this.renderer.processNumericAndRender(hpDiff, coords.x, coords.y);
+      this.socketController.emit(
+        hpDiff,
+        SocketController.emitTypes.TYPE_NUMERIC,
+        coords.x,
+        coords.y,
+        scene._id,
+      );
     });
   }
 }

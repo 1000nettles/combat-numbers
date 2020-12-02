@@ -1,13 +1,16 @@
 import _ from 'lodash';
+import Renderer from './renderer';
+import SocketController from './socketController';
 
 /**
  * Coordinate any Token updates from the Foundry Hook system.
  */
 export default class TokenUpdateCoordinator {
-  constructor(layer, socketController, calculator) {
-    this.layer = layer;
+  constructor(renderer, socketController, calculator, state) {
+    this.renderer = renderer;
     this.socketController = socketController;
     this.calculator = calculator;
+    this.state = state;
     this.queuedUpdates = new Map();
   }
 
@@ -65,8 +68,29 @@ export default class TokenUpdateCoordinator {
 
     const coords = this.calculator.getCoordinates(scene, entity);
 
-    this.layer.addCombatNumber(hpDiff, coords.x, coords.y);
-    this.socketController.emit(hpDiff, coords.x, coords.y, scene._id);
+    if (this.state.getIsMask()) {
+      const maskedType = (hpDiff < 0)
+        ? Renderer.maskedTypes.TYPE_DAMAGE
+        : Renderer.maskedTypes.TYPE_HEAL;
+
+      this.renderer.processMaskedAndRender(maskedType, coords.x, coords.y);
+      this.socketController.emit(
+        maskedType,
+        SocketController.emitTypes.TYPE_MASKED,
+        coords.x,
+        coords.y,
+        scene._id,
+      );
+    } else {
+      this.renderer.processNumericAndRender(hpDiff, coords.x, coords.y);
+      this.socketController.emit(
+        hpDiff,
+        SocketController.emitTypes.TYPE_NUMERIC,
+        coords.x,
+        coords.y,
+        scene._id,
+      );
+    }
 
     this._cleanQueuedUpdates(entityId);
   }

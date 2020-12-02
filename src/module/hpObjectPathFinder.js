@@ -6,6 +6,8 @@
  *
  * A Foundry admin can adjust module settings to specify the path.
  *
+ * No relation to the PathFinder game system ;)
+ *
  * @see https://lodash.com/docs/4.17.15#get
  */
 export default class HpObjectPathFinder {

@@ -13,10 +13,10 @@ export default class SocketController {
    *   The current User instance.
    * @param {State} state
    *   The current User instance.
-   * @param {CombatNumberLayer} layer
-   *   The current CombatNumberLayer instance.
+   * @param {Renderer} renderer
+   *   The current Renderer instance.
    */
-  constructor(socket, user, state, layer) {
+  constructor(socket, user, state, renderer) {
     /**
      * The current WebSocket instance.
      *
@@ -39,11 +39,11 @@ export default class SocketController {
     this.state = state;
 
     /**
-     * The current Layer.
+     * The current Renderer.
      *
-     * @type {CombatNumberLayer}
+     * @type {Renderer}
      */
-    this.layer = layer;
+    this.renderer = renderer;
 
     /**
      * The name of our socket.
@@ -51,6 +51,18 @@ export default class SocketController {
      * @type {string}
      */
     this.socketName = 'module.combat-numbers';
+  }
+
+  /**
+   * The types of emissions we can emit.
+   *
+   * @return {Object}
+   */
+  static get emitTypes() {
+    return {
+      TYPE_NUMERIC: 1,
+      TYPE_MASKED: 2,
+    };
   }
 
   /**
@@ -76,8 +88,9 @@ export default class SocketController {
    *
    * Specifically, this will emit data to construct and show a combat number.
    *
-   * @param {number} number
-   *   The relevant combat number value.
+   * @param {number} data
+   *   The relevant data for the emission. Currently can be a numeric Combat
+   *   Number amount, or a numeric enum value for the masked value.
    * @param {number} x
    *   The relevant X position for later rendering.
    * @param {number} y
@@ -87,7 +100,7 @@ export default class SocketController {
    *
    * @return {Promise<void>}
    */
-  async emit(number, x, y, sceneId) {
+  async emit(data, type, x, y, sceneId) {
     if (this.state.getIsPauseBroadcast()) {
       return;
     }
@@ -97,7 +110,7 @@ export default class SocketController {
     this.socket.emit(
       this.socketName,
       {
-        number, x, y, sceneId,
+        data, type, x, y, sceneId,
       },
     );
   }
@@ -109,6 +122,7 @@ export default class SocketController {
    * new combat number.
    *
    * @return {Promise<void>}
+   *
    * @private
    */
   async _listen() {
@@ -119,8 +133,18 @@ export default class SocketController {
         return;
       }
 
-      this.layer.addCombatNumber(
-        Number(data.number),
+      if (data.type === SocketController.emitTypes.TYPE_MASKED) {
+        this.renderer.processMaskedAndRender(
+          Number(data.data),
+          Number(data.x),
+          Number(data.y),
+        );
+
+        return;
+      }
+
+      this.renderer.processNumericAndRender(
+        Number(data.data),
         Number(data.x),
         Number(data.y),
       );

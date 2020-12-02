@@ -19,6 +19,22 @@ export default () => {
     default: false,
     type: Boolean,
   });
+  game.settings.register('combat-numbers', 'mask_damage', {
+    name: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskDamage'),
+    hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskDamageHint'),
+    scope: 'client',
+    config: true,
+    default: 'Hit',
+    type: String,
+  });
+  game.settings.register('combat-numbers', 'mask_heal', {
+    name: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskHeal'),
+    hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskHealHint'),
+    scope: 'client',
+    config: true,
+    default: 'Healed',
+    type: String,
+  });
   game.settings.register('combat-numbers', 'hp_object_path', {
     name: game.i18n.localize('COMBATNUMBERS.SETTINGS.hpObjectPathName'),
     hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.hpObjectPathHint'),

@@ -10,6 +10,7 @@
 import _ from 'lodash';
 import registerSettings from './module/settings';
 import CombatNumberLayer from './module/combatNumberLayer';
+import Renderer from './module/renderer';
 import SocketController from './module/socketController';
 import TokenUpdateCoordinator from './module/tokenUpdateCoordinator';
 import ActorUpdateCoordinator from './module/actorUpdateCoordinator';
@@ -25,6 +26,11 @@ import State from './module/state';
 /* global game */
 /* global canvas */
 /* global mergeObject */
+
+/**
+ * Our Renderer instance for use within hooks.
+ */
+let renderer;
 
 /**
  * Our SocketController instance for use within hooks.
@@ -85,6 +91,25 @@ function registerStaticLayer() {
   });
 }
 
+/**
+ * Find the currently viewed Scene for the User.
+ *
+ * @return {Scene|null}
+ */
+function findViewedScene() {
+  let currentScene = null;
+
+  // Determine the current scene for emission later.
+  for (const value of game.scenes) {
+    if (value._view === true) {
+      currentScene = value;
+      break;
+    }
+  }
+
+  return currentScene;
+}
+
 /* ------------------------------------ */
 /* Initialize module                    */
 /* ------------------------------------ */
@@ -120,7 +145,11 @@ Hooks.on('canvasInit', (canvas) => {
  * This happens every time a scene change takes place, hence the `on`.
  */
 Hooks.on('canvasReady', async () => {
-  const layer = canvas.layers.find((targetLayer) => targetLayer instanceof CombatNumberLayer);
+  const layer = canvas.layers.find(
+    (targetLayer) => targetLayer instanceof CombatNumberLayer,
+  );
+
+  renderer = new Renderer(layer, game.settings, state);
 
   // Ensure that we only have a single socket open for our module so we don't
   // clutter up open sockets when changing scenes (or, more specifically,
@@ -129,22 +158,23 @@ Hooks.on('canvasReady', async () => {
     await socketController.deactivate();
   }
 
-  socketController = new SocketController(game.socket, game.user, state, layer);
+  socketController = new SocketController(game.socket, game.user, state, renderer);
 
   const hpObjectPathFinder = new HpObjectPathFinder(game.settings);
   tokenCalculator = new TokenCalculator(hpObjectPathFinder);
   actorCalculator = new ActorCalculator(hpObjectPathFinder);
 
   actorUpdateCoordinator = new ActorUpdateCoordinator(
-    game.scenes,
-    layer,
+    renderer,
     socketController,
     actorCalculator,
+    state,
   );
   tokenUpdateCoordinator = new TokenUpdateCoordinator(
-    layer,
+    renderer,
     socketController,
     tokenCalculator,
+    state,
   );
 
   await socketController.init();
@@ -155,10 +185,16 @@ Hooks.on('preUpdateActor', (entity, delta, audit) => {
     return;
   }
 
+  const viewedScene = findViewedScene();
+  if (!viewedScene) {
+    return;
+  }
+
   actorUpdateCoordinator.coordinatePreUpdate(
     entity,
     delta,
     entity.getActiveTokens(),
+    viewedScene,
   );
 });
 
@@ -192,10 +228,16 @@ Hooks.on('preUpdateToken', (scene, entity, delta, audit) => {
       return;
     }
 
+    const viewedScene = findViewedScene();
+    if (!viewedScene) {
+      return;
+    }
+
     actorUpdateCoordinator.coordinatePreUpdate(
       origActor,
       actorData,
       [entity],
+      viewedScene,
     );
 
     return;

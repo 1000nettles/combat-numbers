@@ -45,6 +45,18 @@ export default class ControlsGenerator {
             );
           },
         },
+        {
+          name: 'mask',
+          title: 'COMBATNUMBERS.CONTROLS.TOOLS.mask',
+          icon: 'fas fa-mask',
+          active: this.state.getIsMask(),
+          toggle: true,
+          onClick: () => {
+            this.state.setIsMask(
+              !this.state.getIsMask(),
+            );
+          },
+        },
       ],
     });
   }

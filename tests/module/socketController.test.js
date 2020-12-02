@@ -3,19 +3,19 @@ import SocketController from 'module/socketController';
 let mockSocket;
 let mockUser;
 let mockState;
-let mockLayer;
+let mockRenderer;
 let socketController;
 
 beforeEach(() => {
   mockSocket = {};
   mockUser = {};
   mockState = {};
-  mockLayer = {};
+  mockRenderer = {};
 
-  socketController = new SocketController(mockSocket, mockUser, mockState, mockLayer);
+  socketController = new SocketController(mockSocket, mockUser, mockState, mockRenderer);
 });
 
-it('should initialize the socket listener and should not show in scene', async () => {
+it('should initialize the socket listener and listen and not show in scene', async () => {
   mockUser.viewedScene = 'not_a_viewed_scene';
   let socketOnArgs;
 
@@ -35,14 +35,14 @@ it('should initialize the socket listener and should not show in scene', async (
 
   await socketController.init();
 
-  mockLayer.addCombatNumber = jest.fn();
-  expect(mockLayer.addCombatNumber).not.toHaveBeenCalled();
+  mockRenderer.processNumericAndRender = jest.fn();
+  expect(mockRenderer.processNumericAndRender).not.toHaveBeenCalled();
   expect(socketOnArgs[0]).toEqual('module.combat-numbers');
 });
 
-it('should initialize the socket listener and should show in scene', async () => {
+it('should listen and should show numeric type in scene', async () => {
   let socketOnArgs;
-  const number = 1234;
+  const data = 1234;
   const x = 1;
   const y = 1;
 
@@ -50,26 +50,61 @@ it('should initialize the socket listener and should show in scene', async () =>
 
   mockSocket.on = jest.fn((...args) => {
     socketOnArgs = args;
-    const data = {
+    const callbackData = {
       sceneId: 'a_scene_id',
-      number,
+      data,
       x,
       y,
     };
 
     // This is the callback function for `socket.on`. Let's call it to
     // validate what happens.
-    args[1](data);
+    args[1](callbackData);
   });
 
-  mockLayer.addCombatNumber = jest.fn();
+  mockRenderer.processNumericAndRender = jest.fn();
 
   await socketController.init();
 
   // Ensure that we are adding the combat number with the correct passing of
   // data.
-  expect(mockLayer.addCombatNumber).toHaveBeenCalledTimes(1);
-  expect(mockLayer.addCombatNumber).toHaveBeenCalledWith(number, x, y);
+  expect(mockRenderer.processNumericAndRender).toHaveBeenCalledTimes(1);
+  expect(mockRenderer.processNumericAndRender).toHaveBeenCalledWith(data, x, y);
+  expect(socketOnArgs[0]).toEqual('module.combat-numbers');
+});
+
+it('should listen and should show masked type in scene', async () => {
+  let socketOnArgs;
+  const data = 1234;
+  const type = SocketController.emitTypes.TYPE_MASKED;
+  const x = 1;
+  const y = 1;
+
+  mockUser.viewedScene = 'a_scene_id';
+
+  mockSocket.on = jest.fn((...args) => {
+    socketOnArgs = args;
+    const callbackData = {
+      sceneId: 'a_scene_id',
+      data,
+      type,
+      x,
+      y,
+    };
+
+    // This is the callback function for `socket.on`. Let's call it to
+    // validate what happens.
+    args[1](callbackData);
+  });
+
+  mockRenderer.processMaskedAndRender = jest.fn();
+
+  await socketController.init();
+
+  // Ensure that we are adding the combat number with the correct passing of
+  // data.
+  expect(mockRenderer.processMaskedAndRender).toHaveBeenCalledTimes(1);
+  expect(mockRenderer.processMaskedAndRender).toHaveBeenCalledWith(data, x, y);
   expect(socketOnArgs[0]).toEqual('module.combat-numbers');
 });
 
@@ -94,7 +129,8 @@ it('should not emit to socket if broadcasting is paused', async () => {
 });
 
 it('should emit to socket', async () => {
-  const number = 1234;
+  const data = 1234;
+  const type = SocketController.emitTypes.TYPE_NUMERIC;
   const x = 1;
   const y = 1;
   const sceneId = 'a_scene_id';
@@ -104,11 +140,13 @@ it('should emit to socket', async () => {
   mockSocket.emit = jest.fn();
 
   await socketController.init();
-  await socketController.emit(number, x, y, sceneId);
+  await socketController.emit(data, type, x, y, sceneId);
 
   const expectedPayload = [
     'module.combat-numbers',
-    { number, x, y, sceneId }
+    {
+      data, type, x, y, sceneId,
+    },
   ];
 
   expect(mockSocket.emit).toHaveBeenCalledWith(...expectedPayload);
