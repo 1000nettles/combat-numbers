@@ -4,10 +4,7 @@
 ![Issues](https://img.shields.io/github/issues/1000nettles/combat-numbers?style=flat-square)
 ![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers?style=flat-square)
 
-Combat Numbers is a FoundryVTT module which showcases bouncing combat numbers on tokens, similar to old-school JRPGs. It currently has very basic functionality:
-
-* Show the numeric damage amount on a token when it takes damage
-* Show the numeric healing amount on a token when it gains HP
+Combat Numbers is a FoundryVTT module which showcases bouncing combat text on tokens, similar to old-school JRPGs. There's still work to do, but it allows for fine-grained control on what is broadcast to other players when an actor's HP changes. 
 
 ## What Does This Look Like?
 
@@ -30,13 +27,25 @@ If you have a system you would like to use but it is not in the list above, it m
 
 ## Instructions
 
-Install the module, enabled it for your world, and voila! Any token or actor which has an HP attribute that changes will have the relevant combat numbers applied to them.
+Install the module, enable it for your world, and voila! Any token or actor which has an HP attribute that changes will have the relevant Combat Numbers applied to them.
 
 The manifest URL for manual installation is: https://github.com/1000nettles/combat-numbers/releases/latest/download/module.json
 
+## Canvas Layer Controls
+
+![The Combat Numbers Canvas Layer Controls in the Toolbar](img/canvas_layer_controls.png)
+
+Combat Numbers includes an additional Canvas Layer Control button in the toolbar, seen as "#". Currently, this is only available for GMs. When clicked, you are presented with two toggleable options:
+
+* **Pause Broadcasting:** If toggled to ON, this will pause broadcasting any Combat Number displays to other players. For example, if you modified the HP of a monster, other players would not see the Combat Numbers display on that monster token. The player can edit their own HP however and still see and broadcast their own Combat Numbers.
+* **Mask Combat Numbers Display:** If toggled to ON, this will mask the numeric display of any Combat Numbers that you see and broadcast to other players. Damage Combat Numbers will be seen as "Hit", and healing Combat Numbers will be seen as "Healed". Feel free to change the text of the masked Combat Numbers in the settings.
+
 ## Settings
 
+* **Show Canvas Layer Controls:** If enabled, it will show the Canvas Layer Controls button in the toolbar. Defaults to enabled.  
 * **Show Addition / Subtraction Modifiers:** If enabled, it will show a "-" in front of a Combat Number when dealing damage, or show a "+" when healing.
+* **Mask Damage Text:** When masking is on, this is the text that will display for damage instead of the numeric value.
+* **Mask Heal Text:** When masking is on, this is the text that will display for healing instead of the numeric value.
 * **HP Object Path:** See the section below.
 * **Temporary HP Object Path:** See the section below.
 
