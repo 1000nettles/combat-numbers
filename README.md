@@ -1,6 +1,6 @@
 # Combat Numbers
 
-![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v0.3.0.zip?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v0.3.1.zip?style=flat-square)
 ![Issues](https://img.shields.io/github/issues/1000nettles/combat-numbers?style=flat-square)
 ![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers?style=flat-square)
 
@@ -56,6 +56,11 @@ Currently, it's tough to support every popular system out there for Foundry. In 
 For example, the default HP Object Path for the DnD5e system is `attributes.hp.value`. For the Old-School Essentials system, it is `hp.value`.
 
 [Please see our Wiki for details on already documented systems.](https://github.com/1000nettles/combat-numbers/wiki/Advanced-Customization-for-Unsupported-Systems)
+
+## Language Support
+
+* English
+* 日本語 (Japanese) - thanks to `touge` for this localisation!
 
 ## Future Planned Features
 

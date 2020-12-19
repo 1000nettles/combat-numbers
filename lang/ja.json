@@ -1,0 +1,12 @@
+{
+    "COMBATNUMBERS.CONTROLS.title": "Combat Numbers",
+    "COMBATNUMBERS.CONTROLS.TOOLS.pauseBroadcast": "ブロードキャストの一時停止",
+    "COMBATNUMBERS.SETTINGS.showControlsName": "キャンバスのレイヤーコントロールを表示する",
+    "COMBATNUMBERS.SETTINGS.showControlsHint": "キャンバスのレイヤーコントロールボタンとそのツールを表示します。“#”で表示されます。",
+    "COMBATNUMBERS.SETTINGS.showModifiersName": "加算 / 減算修飾子を表示",
+    "COMBATNUMBERS.SETTINGS.showModifiersHint": "ダメージを受けたときに“－”を、回復したときに“＋”を表示する。",
+    "COMBATNUMBERS.SETTINGS.hpObjectPathName": "HPのオブジェクトパス",
+    "COMBATNUMBERS.SETTINGS.hpObjectPathHint": "⚠️ 上級ユーザー向け。ここではアクターまたはトークン エンティティ内の“HP”属性のオブジェクトパスを指定します。それぞれの子プロパティは“.”でトラバースされます。空欄のままにしておくと、多くのゲームシステムで用いられるデフォルト値（attributes.hp.value）が使用されます。",
+    "COMBATNUMBERS.SETTINGS.tempHpObjectPathName": "一時的HPのオブジェクトパス",
+    "COMBATNUMBERS.SETTINGS.tempHpObjectPathHint": "⚠️ 上級ユーザー向け。ここでは“HPのオブジェクトパス”と同様に、一時的HPの属性のパスを指定します。空欄にするとデフォルト値（attributes.hp.temp）が使用されます。またゲームシステムに一時的HPが存在しない場合も空欄にします。"
+}
