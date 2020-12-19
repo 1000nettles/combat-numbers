@@ -1,0 +1,17 @@
+{
+    "COMBATNUMBERS.CONTROLS.title": "Stridssiffror",
+    "COMBATNUMBERS.CONTROLS.TOOLS.pauseBroadcast": "Pausa sändning",
+    "COMBATNUMBERS.CONTROLS.TOOLS.mask": "Maskera Stridssiffror",
+    "COMBATNUMBERS.SETTINGS.showControlsName": "Visa kontroller för kanvaslager",
+    "COMBATNUMBERS.SETTINGS.showControlsHint": "Visar knappen för kanvaslagerkontroller och dess verktyg. Visas som '#'.",
+    "COMBATNUMBERS.SETTINGS.showModifiersName": "Visa modifierare för addition / subtraktion",
+    "COMBATNUMBERS.SETTINGS.showModifiersHint": "Visar \"-\" framför en stridssiffra vid skada, eller \"+\" vid helning.",
+    "COMBATNUMBERS.SETTINGS.maskDamage": "Maskera skador med",
+    "COMBATNUMBERS.SETTINGS.maskDamageHint": "När maskering av skador är på så visas detta istället för det numeriska värdet.",
+    "COMBATNUMBERS.SETTINGS.maskHeal": "Maskera helning med",
+    "COMBATNUMBERS.SETTINGS.maskHealHint": "När maskering av helning är på så visas detta istället för det numeriska värdet.",
+    "COMBATNUMBERS.SETTINGS.hpObjectPathName": "Objektsökväg till skadepoäng",
+    "COMBATNUMBERS.SETTINGS.hpObjectPathHint": "⚠️ För avancerade användare. Detta är objektsökvägen som används för att lokalisera \"skadepoäng\" i aktör eller spelfigurs-objekten. Avskilj underliggande delar med \".\". Lämna tomt för att använda standard för många spelsystem (vilket är \"attributes.hp.value\")",
+    "COMBATNUMBERS.SETTINGS.tempHpObjectPathName": "Objektsökväg för tillfälliga skadepoäng",
+    "COMBATNUMBERS.SETTINGS.tempHpObjectPathHint": "⚠️ För avancerade användare. Denna fungerar på samma sätt som \"Objektsökväg till skadepoäng\" förutom att den refererar till tillfälliga skadepoäng. Lämna tomt för att använda standard för många spelsystem (vilket är \"attributes.hp.temp\")"
+}
