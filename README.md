@@ -61,7 +61,7 @@ For example, the default HP Object Path for the DnD5e system is `attributes.hp.v
 
 * English
 * 日本語 (Japanese) - thanks to `touge` for this localisation!
-* Svenska (Swedish) - thanks to `vg` for this localisation!
+* Svenska (Swedish) - thanks to `xdy` for this localisation!
 
 ## Future Planned Features
 
