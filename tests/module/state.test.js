@@ -1,5 +1,23 @@
 import State from 'module/state';
 
+class GameSettings {
+  constructor() {
+    this.state = new Map();
+  }
+
+  get(module, key) {
+    return this.state.get(`${module}.${key}`);
+  }
+
+  set(module, key, value) {
+    this.state.set(`${module}.${key}`, value);
+  }
+}
+
+global.game = {
+  settings: new GameSettings()
+};
+
 it('should get the current pause broadcast state', () => {
   const state = new State();
 
