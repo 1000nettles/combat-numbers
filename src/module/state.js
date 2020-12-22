@@ -22,7 +22,7 @@ export default class State {
    * @return {boolean}
    */
   getIsMask() {
-    return this.isMask;
+    return game.settings.get('combat-numbers', 'do_masking');
   }
 
   /**
@@ -40,6 +40,6 @@ export default class State {
    * @param {Boolean} value
    */
   setIsMask(value) {
-    this.isMask = !!value;
+    game.settings.set('combat-numbers', 'do_masking', !!value);
   }
 }

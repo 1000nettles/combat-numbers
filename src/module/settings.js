@@ -19,6 +19,13 @@ export default () => {
     default: false,
     type: Boolean,
   });
+  game.settings.register('combat-numbers', 'do_masking', {
+    name: game.i18n.localize('COMBATNUMBERS.CONTROLS.TOOLS.mask'),
+    scope: 'world',
+    config: false,
+    default: false,
+    type: Boolean,
+  });
   game.settings.register('combat-numbers', 'mask_damage', {
     name: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskDamage'),
     hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskDamageHint'),
