@@ -67,6 +67,10 @@ For example, the default HP Object Path for the DnD5e system is `attributes.hp.v
 * 日本語 (Japanese) - thanks to `touge` for this localisation!
 * Svenska (Swedish) - thanks to `xdy` for this localisation!
 
+## Changelog
+
+Please see the [Changelog](https://github.com/1000nettles/combat-numbers/blob/main/CHANGELOG.md) for all changes between updates
+
 ## Future Planned Features
 
 * Ability to change font, including size and colour
