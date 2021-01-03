@@ -2,19 +2,27 @@
 /* global window */
 
 export default () => {
-  game.settings.register('combat-numbers', 'show-controls', {
+  game.settings.register('combat-numbers', 'show_controls', {
     name: game.i18n.localize('COMBATNUMBERS.SETTINGS.showControlsName'),
     hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.showControlsHint'),
-    scope: 'client',
+    scope: 'world',
     config: true,
     default: true,
     type: Boolean,
     onChange: () => window.location.reload(),
   });
-  game.settings.register('combat-numbers', 'show-modifiers', {
+  game.settings.register('combat-numbers', 'show_modifiers', {
     name: game.i18n.localize('COMBATNUMBERS.SETTINGS.showModifiersName'),
     hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.showModifiersHint'),
     scope: 'client',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+  game.settings.register('combat-numbers', 'mask_default', {
+    name: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskDefaultName'),
+    hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.maskDefaultHint'),
+    scope: 'world',
     config: true,
     default: false,
     type: Boolean,

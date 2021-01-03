@@ -178,6 +178,13 @@ Hooks.on('canvasReady', async () => {
   );
 
   await socketController.init();
+
+  // Set the initial default of the masking setting.
+  const maskDefault = !!(game.settings.get(
+    moduleName,
+    'mask_default',
+  ));
+  state.setIsMask(maskDefault);
 });
 
 Hooks.on('preUpdateActor', (entity, delta, audit) => {
@@ -260,7 +267,7 @@ Hooks.on('updateToken', (scene, entity, delta, audit) => {
 Hooks.on('getSceneControlButtons', (controls) => {
   const showControls = !!(game.settings.get(
     moduleName,
-    'show-controls',
+    'show_controls',
   ));
 
   const controlsGenerator = new ControlsGenerator(state);

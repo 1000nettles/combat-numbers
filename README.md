@@ -47,6 +47,7 @@ Combat Numbers includes an additional Canvas Layer Control button in the toolbar
 
 * **Show Canvas Layer Controls:** If enabled, it will show the Canvas Layer Controls button in the toolbar. Defaults to enabled.  
 * **Show Addition / Subtraction Modifiers:** If enabled, it will show a "-" in front of a Combat Number when dealing damage, or show a "+" when healing.
+* **Mask Default State:** The default state of the masking toggle in the Canvas Layer Controls tools. Checked means ON, unchecked means OFF.
 * **Mask Damage Text:** When masking is on, this is the text that will display for damage instead of the numeric value.
 * **Mask Heal Text:** When masking is on, this is the text that will display for healing instead of the numeric value.
 * **HP Object Path:** See the section below.

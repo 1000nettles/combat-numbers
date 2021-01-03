@@ -170,7 +170,7 @@ export default class Renderer {
   _shouldShowModifiers() {
     return !!(this.settings.get(
       this.moduleName,
-      'show-modifiers',
+      'show_modifiers',
     ));
   }
 

@@ -6,6 +6,8 @@
     "COMBATNUMBERS.SETTINGS.showControlsHint": "Shows the Canvas Layers Controls button and its tools. Denoted as a '#'.",
     "COMBATNUMBERS.SETTINGS.showModifiersName": "Show Addition / Subtraction Modifiers",
     "COMBATNUMBERS.SETTINGS.showModifiersHint": "Shows a \"-\" in front of a Combat Number when damage is dealt, or shows a \"+\" when healed.",
+    "COMBATNUMBERS.SETTINGS.maskDefaultName": "Mask Default State",
+    "COMBATNUMBERS.SETTINGS.maskDefaultHint": "The default state of the masking toggle in the Canvas Layer Controls tools. Checked means ON, unchecked means OFF.",
     "COMBATNUMBERS.SETTINGS.maskDamage": "Mask Damage Text",
     "COMBATNUMBERS.SETTINGS.maskDamageHint": "When masking is on, this is the text that will display for damage instead of the numeric value.",
     "COMBATNUMBERS.SETTINGS.maskHeal": "Mask Heal Text",
