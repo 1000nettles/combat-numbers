@@ -1,7 +1,36 @@
 /* global game */
 /* global window */
 
+import CombatNumbersConfig from './combatNumbersConfig';
+
 export default () => {
+  // The Appearance settings menu and settings entry...
+  game.settings.registerMenu('combat-numbers', 'combat-numbers', {
+    name: 'COMBATNUMBERS.SETTINGS.configName',
+    label: 'COMBATNUMBERS.SETTINGS.configTitle',
+    hint: 'COMBATNUMBERS.SETTINGS.configHint',
+    icon: 'fas fa-palette',
+    type: CombatNumbersConfig,
+    restricted: true,
+  });
+  game.settings.register('combat-numbers', 'appearance', {
+    name: 'Appearance',
+    hint: 'The appearance settings, all contained within an object',
+    scope: 'world',
+    config: false,
+    default: CombatNumbersConfig.DEFAULT_APPEARANCE,
+    type: Object,
+  });
+
+  // All other normal settings...
+  game.settings.register('combat-numbers', 'font', {
+    name: 'Font',
+    hint: 'The font that Combat Numbers uses for rendering',
+    scope: 'world',
+    config: false,
+    default: 'Verdana',
+    type: String,
+  });
   game.settings.register('combat-numbers', 'show_controls', {
     name: game.i18n.localize('COMBATNUMBERS.SETTINGS.showControlsName'),
     hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.showControlsHint'),
