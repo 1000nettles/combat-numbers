@@ -21,7 +21,7 @@ export default class CombatNumbersConfig extends FormApplication {
       id: 'combat-numbers-config',
       template: 'modules/combat-numbers/src/templates/config.html',
       width: 500,
-      height: 536,
+      height: 588,
       closeOnSubmit: true,
     });
   }
@@ -34,19 +34,20 @@ export default class CombatNumbersConfig extends FormApplication {
   static get DEFAULT_APPEARANCE() {
     return {
       font: 'Verdana',
+      fontSize: 'medium',
       bold: true,
       italic: false,
       damageColor: '#ffffff',
       healColor: '#95ed98',
       strokeColor: '#000000',
-      strokeThickness: 4,
+      strokeThickness: 5,
       dropShadowColor: '#000000',
       dropShadowAlpha: 1,
     };
   }
 
   /**
-   * The available font families to choose from.
+   * The built-in font families to choose from.
    *
    * @return {array}
    */
@@ -67,12 +68,28 @@ export default class CombatNumbersConfig extends FormApplication {
     ];
   }
 
+  /**
+   * The available font sizes to choose from.
+   *
+   * @return {Object}
+   */
+  static get FONT_SIZES() {
+    return {
+      xsmall: game.i18n.localize('COMBATNUMBERS.SETTINGS.fontSizeXSmall'),
+      small: game.i18n.localize('COMBATNUMBERS.SETTINGS.fontSizeSmall'),
+      medium: game.i18n.localize('COMBATNUMBERS.SETTINGS.fontSizeMedium'),
+      large: game.i18n.localize('COMBATNUMBERS.SETTINGS.fontSizeLarge'),
+      xlarge: game.i18n.localize('COMBATNUMBERS.SETTINGS.fontSizeXLarge'),
+    };
+  }
+
   /** @override */
   getData() {
     const appearance = game.settings.get('combat-numbers', 'appearance');
     const defaultAppearance = CombatNumbersConfig.DEFAULT_APPEARANCE;
     const object = {
       fontList: this._getFontList(),
+      fontSizeList: CombatNumbersConfig.FONT_SIZES,
       font: appearance.font ?? defaultAppearance.font,
       bold: appearance.bold ?? defaultAppearance.bold,
       italic: appearance.italic ?? defaultAppearance.italic,
@@ -124,6 +141,13 @@ export default class CombatNumbersConfig extends FormApplication {
       fontOtherFormGroup.show();
     });
 
+    // Set the selected or default font size.
+    const fontSize = appearance?.fontSize
+      ? appearance.fontSize
+      : CombatNumbersConfig.DEFAULT_APPEARANCE.fontSize;
+
+    html.find('select[name="fontSize"]').val(fontSize);
+
     // Perform the reset action if the user clicks "Reset".
     html.find('button[name="reset"]').click(() => {
       this.reset(html);
@@ -138,6 +162,7 @@ export default class CombatNumbersConfig extends FormApplication {
       parseInt(formData.font, 10),
       formData,
     );
+    appearance.fontSize = formData.fontSize;
     appearance.bold = formData.bold;
     appearance.italic = formData.italic;
     appearance.damageColor = formData.damageColor;
@@ -167,6 +192,7 @@ export default class CombatNumbersConfig extends FormApplication {
     html.find('select[name="font"]').val(fontKey);
     html.find('.form-group-font-other').hide();
     html.find('#fontOther').val('');
+    html.find('select[name="fontSize"]').val(defaultAppearance.fontSize);
     html.find('input[name="bold"]').prop('checked', defaultAppearance.bold);
     html.find('input[name="italic"]').prop('checked', defaultAppearance.italic);
     html.find('input[name="damageColor"]').val(defaultAppearance.damageColor);

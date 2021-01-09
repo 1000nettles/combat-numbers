@@ -21,6 +21,18 @@
             </div>
 
             <div class="form-group">
+                <label>{{localize "COMBATNUMBERS.SETTINGS.labelFontSize"}}</label>
+                <select name="fontSize">
+                    {{#select fontSize}}
+                    {{#each fontSizeList as |name key|}}
+                    <option value="{{key}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+                <p class="notes">{{localize "COMBATNUMBERS.SETTINGS.fontSizeHint"}}</p>
+            </div>
+
+            <div class="form-group">
                 <label>{{localize "COMBATNUMBERS.SETTINGS.bold"}}</label>
                 <input type="checkbox" name="bold" data-dtype="Boolean" {{checked bold}} />
             </div>

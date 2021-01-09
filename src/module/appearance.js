@@ -4,7 +4,14 @@ import CombatNumbersConfig from './combatNumbersConfig';
  * A class to translate our appearance settings into a PIXI Text Style object.
  */
 export default class Appearance {
-  constructor(appearanceSettings) {
+  constructor(appearanceSettings, gridSize) {
+    /**
+     * The current Scene's grid size.
+     *
+     * @type {number}
+     */
+    this.gridSize = Number(gridSize);
+
     const defaults = CombatNumbersConfig.DEFAULT_APPEARANCE;
 
     this.healColor = appearanceSettings?.healColor === undefined
@@ -18,6 +25,10 @@ export default class Appearance {
     this.fontFamily = appearanceSettings?.font === undefined
       ? defaults.font
       : appearanceSettings.font;
+
+    this.fontSizeSetting = appearanceSettings?.fontSize === undefined
+      ? defaults.fontSize
+      : appearanceSettings.fontSize;
 
     if (
       appearanceSettings?.bold === undefined
@@ -99,6 +110,7 @@ export default class Appearance {
   _getBaseTextStyle() {
     const baseTextStyle = {
       fontFamily: this.fontFamily,
+      fontSize: this._getFontSizeForTextStyle(),
       fontWeight: this.fontWeight,
       fontStyle: this.fontStyle,
       stroke: this.stroke,
@@ -112,5 +124,39 @@ export default class Appearance {
     }
 
     return baseTextStyle;
+  }
+
+  /**
+   * Calculate and get the font size for the PIXI Text Style object.
+   *
+   * @return {number}
+   *   The final numeric text size, rounded.
+   *
+   * @private
+   */
+  _getFontSizeForTextStyle() {
+    let modifier;
+
+    switch (this.fontSizeSetting) {
+      case 'xsmall':
+        modifier = 0.1;
+        break;
+      case 'small':
+        modifier = 0.2;
+        break;
+      case 'medium':
+        modifier = 0.3;
+        break;
+      case 'large':
+        modifier = 0.5;
+        break;
+      case 'xlarge':
+        modifier = 0.75;
+        break;
+      default:
+        throw new TypeError(`Cannot find a font size for font size setting "${this.fontSizeSetting}"`);
+    }
+
+    return Math.round(this.gridSize * modifier);
   }
 }

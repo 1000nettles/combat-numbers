@@ -55,9 +55,9 @@ export default class AmountStylizer {
     let textStyle;
 
     if (type === AmountStylizer.types.TYPE_DAMAGE) {
-      textStyle = this.appearance.getHealTextStyle();
-    } else {
       textStyle = this.appearance.getDamageTextStyle();
+    } else {
+      textStyle = this.appearance.getHealTextStyle();
     }
 
     return new PIXI.TextStyle(textStyle);

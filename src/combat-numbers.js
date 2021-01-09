@@ -150,8 +150,10 @@ Hooks.on('canvasReady', async () => {
     (targetLayer) => targetLayer instanceof CombatNumberLayer,
   );
 
+  const scene = findViewedScene();
   const appearance = new Appearance(
     game.settings.get('combat-numbers', 'appearance'),
+    scene.data.grid,
   );
 
   renderer = new Renderer(
