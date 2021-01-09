@@ -4,7 +4,7 @@
     "COMBATNUMBERS.CONTROLS.TOOLS.mask": "Mask Combat Numbers Display",
     "COMBATNUMBERS.SETTINGS.configName": "Appearance",
     "COMBATNUMBERS.SETTINGS.configTitle": "Configure Appearance",
-    "COMBATNUMBERS.SETTINGS.configHint": "Configure the appearance of the Combat Numbers display on the canvas.",
+    "COMBATNUMBERS.SETTINGS.configHint": "Configure the appearance of the Combat Numbers display on the canvas for all players.",
     "COMBATNUMBERS.SETTINGS.titleFont": "Font",
     "COMBATNUMBERS.SETTINGS.labelFontFamily": "Font Family",
     "COMBATNUMBERS.SETTINGS.labelFontFamilyOther": "Other Font Family Name",

@@ -110,6 +110,8 @@ export default class CombatNumbersConfig extends FormApplication {
 
     // Show / hide the "font other" box only if the "Other" option is selected.
     const fontOtherName = this.fontOther;
+
+    // eslint-disable-next-line func-names
     html.find('select[name="font"]').change(function () {
       const optionName = jQuery(this).find('option:selected').text();
 

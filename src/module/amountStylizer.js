@@ -1,12 +1,12 @@
 /* global PIXI */
-/* global game */
 
 /**
  * Stylize the Combat Number amount for display.
  */
 export default class AmountStylizer {
-  constructor(text) {
+  constructor(text, appearance) {
     this.text = String(text);
+    this.appearance = appearance;
   }
 
   /**
@@ -52,22 +52,14 @@ export default class AmountStylizer {
    * @private
    */
   _getTextStyle(type) {
-    let fill = '#95ed98';
+    let textStyle;
 
     if (type === AmountStylizer.types.TYPE_DAMAGE) {
-      fill = '#ffffff';
+      textStyle = this.appearance.getHealTextStyle();
+    } else {
+      textStyle = this.appearance.getDamageTextStyle();
     }
 
-    const appearance = game.settings.get('combat-numbers', 'appearance');
-
-    return new PIXI.TextStyle({
-      dropShadow: true,
-      dropShadowDistance: 4,
-      fill,
-      fontFamily: appearance.font,
-      fontSize: 24,
-      fontWeight: 'bold',
-      strokeThickness: 4,
-    });
+    return new PIXI.TextStyle(textStyle);
   }
 }

@@ -20,6 +20,13 @@ export default () => {
     config: false,
     default: CombatNumbersConfig.DEFAULT_APPEARANCE,
     type: Object,
+    onChange: () => {
+      // Wait until the config dialog window has closed, then refresh the
+      // application.
+      setTimeout(() => {
+        window.location.reload();
+      }, 200);
+    },
   });
 
   // All other normal settings...

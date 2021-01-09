@@ -19,6 +19,7 @@ import ActorCalculator from './module/calculator/actorCalculator';
 import HpObjectPathFinder from './module/hpObjectPathFinder';
 import ControlsGenerator from './module/controlsGenerator';
 import State from './module/state';
+import Appearance from './module/appearance';
 
 /* eslint no-console: ['error', { allow: ['warn', 'log', 'debug'] }] */
 /* global Canvas */
@@ -149,7 +150,16 @@ Hooks.on('canvasReady', async () => {
     (targetLayer) => targetLayer instanceof CombatNumberLayer,
   );
 
-  renderer = new Renderer(layer, game.settings, state);
+  const appearance = new Appearance(
+    game.settings.get('combat-numbers', 'appearance'),
+  );
+
+  renderer = new Renderer(
+    layer,
+    game.settings,
+    state,
+    appearance,
+  );
 
   // Ensure that we only have a single socket open for our module so we don't
   // clutter up open sockets when changing scenes (or, more specifically,

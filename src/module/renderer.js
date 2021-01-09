@@ -5,7 +5,7 @@ import AmountStylizer from './amountStylizer';
  * A Renderer class to handle rendering responsibilities.
  */
 export default class Renderer {
-  constructor(layer, settings, state) {
+  constructor(layer, settings, state, appearance) {
     /**
      * The associated Layer instance.
      *
@@ -26,6 +26,11 @@ export default class Renderer {
      * @type {State}
      */
     this.state = state;
+
+    /**
+     * The associated Appearance instance..
+     */
+    this.appearance = appearance;
 
     /**
      * Our module name.
@@ -121,7 +126,7 @@ export default class Renderer {
    * @private
    */
   _render(text, stylizerType, x, y) {
-    const amountStylizer = new AmountStylizer(text);
+    const amountStylizer = new AmountStylizer(text, this.appearance);
     const dmgNum = amountStylizer.stylize(stylizerType);
 
     // Ensure we're anchoring to the center of the token.
