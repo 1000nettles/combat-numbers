@@ -1,4 +1,5 @@
 /* global PIXI */
+/* global game */
 
 /**
  * Stylize the Combat Number amount for display.
@@ -57,11 +58,13 @@ export default class AmountStylizer {
       fill = '#ffffff';
     }
 
+    const appearance = game.settings.get('combat-numbers', 'appearance');
+
     return new PIXI.TextStyle({
       dropShadow: true,
       dropShadowDistance: 4,
       fill,
-      fontFamily: 'Verdana',
+      fontFamily: appearance.font,
       fontSize: 24,
       fontWeight: 'bold',
       strokeThickness: 4,

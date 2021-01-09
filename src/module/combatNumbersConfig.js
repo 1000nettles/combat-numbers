@@ -21,7 +21,7 @@ export default class CombatNumbersConfig extends FormApplication {
       id: 'combat-numbers-config',
       template: 'modules/combat-numbers/src/templates/config.html',
       width: 500,
-      height: 310,
+      height: 536,
       closeOnSubmit: true,
     });
   }
@@ -34,10 +34,14 @@ export default class CombatNumbersConfig extends FormApplication {
   static get DEFAULT_APPEARANCE() {
     return {
       font: 'Verdana',
-      damageColor: '#ffffff',
-      healColor: '#95ed98',
       bold: true,
       italic: false,
+      damageColor: '#ffffff',
+      healColor: '#95ed98',
+      strokeColor: '#000000',
+      strokeThickness: 4,
+      dropShadowColor: '#000000',
+      dropShadowAlpha: 1,
     };
   }
 
@@ -70,10 +74,14 @@ export default class CombatNumbersConfig extends FormApplication {
     const object = {
       fontList: this._getFontList(),
       font: appearance.font ?? defaultAppearance.font,
-      damageColor: appearance.damageColor ?? defaultAppearance.damageColor,
-      healColor: appearance.healColor ?? defaultAppearance.healColor,
       bold: appearance.bold ?? defaultAppearance.bold,
       italic: appearance.italic ?? defaultAppearance.italic,
+      damageColor: appearance.damageColor ?? defaultAppearance.damageColor,
+      healColor: appearance.healColor ?? defaultAppearance.healColor,
+      strokeColor: appearance.strokeColor ?? defaultAppearance.strokeColor,
+      strokeThickness: appearance.strokeThickness ?? defaultAppearance.strokeThickness,
+      dropShadowColor: appearance.dropShadowColor ?? defaultAppearance.dropShadowColor,
+      dropShadowAlpha: appearance.dropShadowAlpha ?? defaultAppearance.dropShadowAlpha,
     };
 
     return object;
@@ -128,10 +136,14 @@ export default class CombatNumbersConfig extends FormApplication {
       parseInt(formData.font, 10),
       formData,
     );
-    appearance.damageColor = formData.damageColor;
-    appearance.healColor = formData.healColor;
     appearance.bold = formData.bold;
     appearance.italic = formData.italic;
+    appearance.damageColor = formData.damageColor;
+    appearance.healColor = formData.healColor;
+    appearance.strokeColor = formData.strokeColor;
+    appearance.strokeThickness = formData.strokeThickness;
+    appearance.dropShadowColor = formData.dropShadowColor;
+    appearance.dropShadowAlpha = formData.dropShadowAlpha;
 
     await game.settings.set(
       'combat-numbers',
@@ -153,12 +165,20 @@ export default class CombatNumbersConfig extends FormApplication {
     html.find('select[name="font"]').val(fontKey);
     html.find('.form-group-font-other').hide();
     html.find('#fontOther').val('');
+    html.find('input[name="bold"]').prop('checked', defaultAppearance.bold);
+    html.find('input[name="italic"]').prop('checked', defaultAppearance.italic);
     html.find('input[name="damageColor"]').val(defaultAppearance.damageColor);
     html.find('input[name="damageColorSelector"]').val(defaultAppearance.damageColor);
     html.find('input[name="healColor"]').val(defaultAppearance.healColor);
     html.find('input[name="healColorSelector"]').val(defaultAppearance.healColor);
-    html.find('input[name="bold"]').prop('checked', defaultAppearance.bold);
-    html.find('input[name="italic"]').prop('checked', defaultAppearance.italic);
+    html.find('input[name="strokeColor"]').val(defaultAppearance.strokeColor);
+    html.find('input[name="strokeColorSelector"]').val(defaultAppearance.strokeColor);
+    html.find('input[name="strokeThickness"]').val(defaultAppearance.strokeThickness);
+    html.find('.form-group-stroke-thickness .range-value').html(defaultAppearance.strokeThickness);
+    html.find('input[name="dropShadowColor"]').val(defaultAppearance.dropShadowColor);
+    html.find('input[name="dropShadowColorSelector"]').val(defaultAppearance.dropShadowColor);
+    html.find('input[name="dropShadowAlpha"]').val(defaultAppearance.dropShadowAlpha);
+    html.find('.form-group-drop-shadow-alpha .range-value').html(defaultAppearance.dropShadowAlpha);
   }
 
   /**
