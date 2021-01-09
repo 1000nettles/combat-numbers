@@ -1,10 +1,10 @@
 <form autocomplete="off" class="form-combat-numbers">
     <div class="tab active" data-tab="general">
         <div class="cn-settings-container">
-            <h2>{{localize "COMBATNUMBERS.SETTINGS.titleAppearance"}}</h2>
+            <h2>{{localize "COMBATNUMBERS.SETTINGS.titleFont"}}</h2>
 
             <div class="form-group">
-                <label>{{localize "COMBATNUMBERS.SETTINGS.labelFont"}}</label>
+                <label>{{localize "COMBATNUMBERS.SETTINGS.labelFontFamily"}}</label>
                 <select name="font">
                     {{#select font}}
                     {{#each fontList as |name key|}}
@@ -16,9 +16,21 @@
 
             {{! Hide the "other" font group until the user chooses it }}
             <div class="form-group form-group-font-other" style="display: none;">
-                <label>{{localize "COMBATNUMBERS.SETTINGS.labelFontOther"}}</label>
+                <label>{{localize "COMBATNUMBERS.SETTINGS.labelFontFamilyOther"}}</label>
                 <input type="text" id="fontOther" name="fontOther" value="{{fontOther}}">
             </div>
+
+            <div class="form-group">
+                <label>{{localize "COMBATNUMBERS.SETTINGS.bold"}}</label>
+                <input type="checkbox" name="bold" data-dtype="Boolean" {{checked bold}} />
+            </div>
+
+            <div class="form-group">
+                <label>{{localize "COMBATNUMBERS.SETTINGS.italic"}}</label>
+                <input type="checkbox" name="italic" data-dtype="Boolean" {{checked italic}} />
+            </div>
+
+            <h2>{{localize "COMBATNUMBERS.SETTINGS.titleFill"}}</h2>
 
             <div class="form-group">
                 <label>{{localize "COMBATNUMBERS.SETTINGS.damageColorLabel"}}</label>
@@ -34,16 +46,6 @@
                     <input type="text" name="healColor" value="{{healColor}}" data-dtype="String" />
                     <input type="color" name="healColorSelector" value="{{healColor}}" data-edit="healColor" />
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label>{{localize "COMBATNUMBERS.SETTINGS.bold"}}</label>
-                <input type="checkbox" name="bold" data-dtype="Boolean" {{checked bold}} />
-            </div>
-
-            <div class="form-group">
-                <label>{{localize "COMBATNUMBERS.SETTINGS.italic"}}</label>
-                <input type="checkbox" name="italic" data-dtype="Boolean" {{checked italic}} />
             </div>
         </div>
 

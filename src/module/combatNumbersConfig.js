@@ -11,7 +11,7 @@
 export default class CombatNumbersConfig extends FormApplication {
   constructor(object = {}, options = {}) {
     super(object, options);
-    this.fontOther = game.i18n.localize('COMBATNUMBERS.SETTINGS.fontOther');
+    this.fontOther = game.i18n.localize('COMBATNUMBERS.SETTINGS.fontFamilyOther');
   }
 
   /** @override */
@@ -151,6 +151,8 @@ export default class CombatNumbersConfig extends FormApplication {
     const fontKey = this._getFontKeyByName(defaultAppearance.font);
 
     html.find('select[name="font"]').val(fontKey);
+    html.find('.form-group-font-other').hide();
+    html.find('#fontOther').val('');
     html.find('input[name="damageColor"]').val(defaultAppearance.damageColor);
     html.find('input[name="damageColorSelector"]').val(defaultAppearance.damageColor);
     html.find('input[name="healColor"]').val(defaultAppearance.healColor);
