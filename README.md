@@ -1,6 +1,6 @@
 # Combat Numbers
 
-![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v0.3.2.zip?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v1.0.0.zip?style=flat-square)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fcombat-numbers&style=flat-square)
 ![Issues](https://img.shields.io/github/issues/1000nettles/combat-numbers?style=flat-square)
 ![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers?style=flat-square)
@@ -45,6 +45,21 @@ Combat Numbers includes an additional Canvas Layer Control button in the toolbar
 
 ## Settings
 
+* **Appearance:** Customize the look and feel of the Combat Numbers when rendered on the Scene
+    * **Font**
+        * **Font Family:** The font that the Combat Numbers will be rendered in
+        * **Font Size:** The size of the font. This renders the size of the Combat Numbers relative to the Scene's grid size
+        * **Bold:** Makes the rendered text **bold**
+        * **Italic:** Makes the rendered text _italicized_
+    * **Fill**
+        * **Damage Color:** The color used for the damage Combat Numbers
+        * **Heal Color:** The color used for the healing Combat Numbers
+    * **Stroke**
+      * **Color:** The color used for the Combat Numbers stroke (or "outline")
+      * **Thickness:** How thick the stroke (or "outline") is rendered
+    * **Drop Shadow**
+      * **Color:** The color used for the Combat Numbers drop shadow
+      * **Alpha:** The transparency of the drop shadow. 0 is invisible, 1 is completely visible
 * **Show Canvas Layer Controls:** If enabled, it will show the Canvas Layer Controls button in the toolbar. Defaults to enabled.  
 * **Show Addition / Subtraction Modifiers:** If enabled, it will show a "-" in front of a Combat Number when dealing damage, or show a "+" when healing.
 * **Mask Default State:** The default state of the masking toggle in the Canvas Layer Controls tools. Checked means ON, unchecked means OFF.
@@ -73,6 +88,5 @@ Please see the [Changelog](https://github.com/1000nettles/combat-numbers/blob/ma
 
 ## Future Planned Features
 
-* Ability to change font, including size and colour
 * Different animations instead of just a basic bounce
 * ...please suggest some!

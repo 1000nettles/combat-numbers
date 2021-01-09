@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-01-09
+
+### Added
+
+- Appearance configuration settings. Allows a GM to customize the font family, font size, bold, italics, fill colors, stoke color, stroke thickness, drop shadow color, and drop shadow alpha values of the rendered Combat Numbers
+- Scale rendered Combat Numbers to grid size while taking into account the selected font size configuration
+
 ## [0.3.2] - 2021-01-03
 
 ### Added
