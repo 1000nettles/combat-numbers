@@ -4,7 +4,7 @@
     "COMBATNUMBERS.CONTROLS.TOOLS.mask": "Maskera Stridssiffror",
     "COMBATNUMBERS.SETTINGS.configName": "Utseende",
     "COMBATNUMBERS.SETTINGS.configTitle": "Konfigurera utseende",
-    "COMBATNUMBERS.SETTINGS.configHint": "Konfigurera utseendet på Combat Numbers-displayen på duken för alla spelare.",
+    "COMBATNUMBERS.SETTINGS.configHint": "Konfigurera utseendet på hur Stridssiffror visas för alla spelare.",
     "COMBATNUMBERS.SETTINGS.titleFont": "Typsnitt",
     "COMBATNUMBERS.SETTINGS.labelFontFamily": "Typsnittfamilj",
     "COMBATNUMBERS.SETTINGS.labelFontFamilyOther": "Annat typsnittsnamn",
