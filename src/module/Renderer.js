@@ -187,7 +187,7 @@ export default class Renderer {
   /**
    * Get the mask damage text.
    *
-   * @return {String}
+   * @return {string}
    *   The mask damage text.
    *
    * @private
@@ -202,7 +202,7 @@ export default class Renderer {
   /**
    * Get the mask heal text.
    *
-   * @return {String}
+   * @return {string}
    *   The mask heal text.
    *
    * @private

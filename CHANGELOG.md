@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2021-04-19
+
+### Added
+
+- Additional translations for Swedish and Japanese (thanks to touge and xdy for these localisations!)
+- Added API for adjusting Combat Numbers canvas layer controls (useful for programming macros)
+- Added the "wait time" setting, to allow GMs to adjust how long until Combat Numbers are rendered on the screen after an HP change
+- Added the "linger time" setting, to allow GMs to adjust how long the Combat Numbers linger on the canvas for after they're displayed
+
+### Changed
+
+- Minor thing with JS class casing renames
+
 ## [1.0.0] - 2021-01-09
 
 ### Added
