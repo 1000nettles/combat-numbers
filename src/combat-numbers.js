@@ -20,6 +20,7 @@ import HpObjectPathFinder from './module/hpObjectPathFinder';
 import ControlsGenerator from './module/controlsGenerator';
 import State from './module/state';
 import Appearance from './module/appearance';
+import CombatNumbersApi from './external/CombatNumbersApi';
 
 /* eslint no-console: ['error', { allow: ['warn', 'log', 'debug'] }] */
 /* global Canvas */
@@ -197,6 +198,9 @@ Hooks.on('canvasReady', async () => {
     'mask_default',
   ));
   state.setIsMask(maskDefault);
+
+  // Register our API for macros and other modules to hook into if necessary.
+  global.combatNumbers = new CombatNumbersApi(state);
 });
 
 Hooks.on('preUpdateActor', (entity, delta, audit) => {
