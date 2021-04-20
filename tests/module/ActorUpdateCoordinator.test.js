@@ -1,4 +1,4 @@
-import ActorUpdateCoordinator from 'module/actorUpdateCoordinator';
+import ActorUpdateCoordinator from 'module/ActorUpdateCoordinator';
 import Renderer from 'module/Renderer';
 import SocketController from 'module/SocketController';
 

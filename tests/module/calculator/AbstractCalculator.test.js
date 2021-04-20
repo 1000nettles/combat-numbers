@@ -1,7 +1,7 @@
 import AbstractCalculator from 'module/calculator/AbstractCalculator';
 import HpObjectPathFinder from 'module/HpObjectPathFinder';
 
-jest.mock('module/hpObjectPathFinder');
+jest.mock('module/HpObjectPathFinder');
 
 const mockHpObjectPathFinder = new HpObjectPathFinder();
 
