@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "combat-numbers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A FoundryVTT module showcasing bouncing combat numbers on tokens, similar to old-school JRPGs.",
   "scripts": {
     "build": "npx webpack --config webpack.config.js",
