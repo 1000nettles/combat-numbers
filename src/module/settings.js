@@ -30,13 +30,23 @@ export default () => {
   });
 
   // All other normal settings...
-  game.settings.register('combat-numbers', 'font', {
-    name: 'Font',
-    hint: 'The font that Combat Numbers uses for rendering',
+  game.settings.register('combat-numbers', 'wait_time', {
+    name: game.i18n.localize('COMBATNUMBERS.SETTINGS.waitTimeName'),
+    hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.waitTimeHint'),
     scope: 'world',
-    config: false,
-    default: 'Verdana',
-    type: String,
+    config: true,
+    range: { min: 0, max: 10, step: 0.5 },
+    default: 0,
+    type: Number,
+  });
+  game.settings.register('combat-numbers', 'linger_time', {
+    name: game.i18n.localize('COMBATNUMBERS.SETTINGS.lingerTimeName'),
+    hint: game.i18n.localize('COMBATNUMBERS.SETTINGS.lingerTimeHint'),
+    scope: 'world',
+    config: true,
+    range: { min: 0, max: 10, step: 0.5 },
+    default: 1.5,
+    type: Number,
   });
   game.settings.register('combat-numbers', 'show_controls', {
     name: game.i18n.localize('COMBATNUMBERS.SETTINGS.showControlsName'),

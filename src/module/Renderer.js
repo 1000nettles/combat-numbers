@@ -125,7 +125,7 @@ export default class Renderer {
    *
    * @private
    */
-  _render(text, stylizerType, x, y) {
+  async _render(text, stylizerType, x, y) {
     const amountStylizer = new AmountStylizer(text, this.appearance);
     const dmgNum = amountStylizer.stylize(stylizerType);
 
@@ -134,6 +134,11 @@ export default class Renderer {
     dmgNum.position.x = x;
     dmgNum.position.y = y;
     dmgNum.name = Math.random().toString(36).substring(16);
+
+    // Add a "wait" time if our settings dictate to wait until this is complete.
+    await new Promise(
+      (resolve) => setTimeout(resolve, this._getWaitTime()),
+    );
 
     const child = this.layer.addChild(dmgNum);
 
@@ -154,7 +159,7 @@ export default class Renderer {
         const anim3 = ease.add(
           child,
           { alpha: 0 },
-          { wait: 1500, duration: 500 },
+          { wait: this._getLingerTime(), duration: 500 },
         );
 
         anim3.once('complete', () => {
@@ -207,5 +212,39 @@ export default class Renderer {
       this.moduleName,
       'mask_heal',
     );
+  }
+
+  /**
+   * Get the wait time for until the rendered numbers to display.
+   *
+   * @return {number}
+   *   Return the wait time in milliseconds.
+   *
+   * @private
+   */
+  _getWaitTime() {
+    const waitTime = Number(this.settings.get(
+      this.moduleName,
+      'wait_time',
+    ));
+
+    return waitTime * 1000;
+  }
+
+  /**
+   * Get the linger time for the rendered numbers to display.
+   *
+   * @return {number}
+   *   Return the linger time in milliseconds.
+   *
+   * @private
+   */
+  _getLingerTime() {
+    const lingerTime = Number(this.settings.get(
+      this.moduleName,
+      'linger_time',
+    ));
+
+    return lingerTime * 1000;
   }
 }

@@ -43,6 +43,18 @@ Combat Numbers includes an additional Canvas Layer Control button in the toolbar
 * **Pause Broadcasting:** If toggled to ON, this will pause broadcasting any Combat Number displays to other players. For example, if you modified the HP of a monster, other players would not see the Combat Numbers display on that monster token. The player can edit their own HP however and still see and broadcast their own Combat Numbers.
 * **Mask Combat Numbers Display:** If toggled to ON, this will mask the numeric display of any Combat Numbers that you see and broadcast to other players. Damage Combat Numbers will be seen as "Hit", and healing Combat Numbers will be seen as "Healed". Feel free to change the text of the masked Combat Numbers in the settings.
 
+## API
+
+Adjust Combat Numbers settings within your macros! You can access the API via `window.combatNumbers`, and have access to these methods which affect the canvas layer controls:
+* `setIsPauseBroadcast` (boolean)
+* `setIsMask` (boolean)
+
+For example, to stop broadcasting HP changes as a GM, you could run:
+
+```javascript
+window.combatNumbers.setIsPauseBroadcast(true);
+```
+
 ## Settings
 
 * **Appearance:** Customize the look and feel of the Combat Numbers when rendered on the Scene
@@ -60,6 +72,8 @@ Combat Numbers includes an additional Canvas Layer Control button in the toolbar
     * **Drop Shadow**
       * **Color:** The color used for the Combat Numbers drop shadow
       * **Alpha:** The transparency of the drop shadow. 0 is invisible, 1 is completely visible
+* **Wait Time:** The amount of time (in seconds) between an HP change and displaying the Combat Numbers.
+* **Linger Time:** The amount of time (in seconds) for the Combat Numbers to linger on the screen after being displayed.
 * **Show Canvas Layer Controls:** If enabled, it will show the Canvas Layer Controls button in the toolbar. Defaults to enabled.  
 * **Show Addition / Subtraction Modifiers:** If enabled, it will show a "-" in front of a Combat Number when dealing damage, or show a "+" when healing.
 * **Mask Default State:** The default state of the masking toggle in the Canvas Layer Controls tools. Checked means ON, unchecked means OFF.
