@@ -1,5 +1,5 @@
-import AbstractCalculator from 'module/calculator/abstractCalculator';
-import HpObjectPathFinder from 'module/hpObjectPathFinder';
+import AbstractCalculator from 'module/calculator/AbstractCalculator';
+import HpObjectPathFinder from 'module/HpObjectPathFinder';
 
 jest.mock('module/hpObjectPathFinder');
 

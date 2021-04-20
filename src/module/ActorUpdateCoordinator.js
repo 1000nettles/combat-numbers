@@ -1,7 +1,7 @@
 /* eslint no-console: ["error", { allow: ['warn', 'log', 'debug'] }] */
 
-import Renderer from './renderer';
-import SocketController from './socketController';
+import Renderer from './Renderer';
+import SocketController from './SocketController';
 
 /**
  * Coordinate any Actor updates from the Foundry Hook system.

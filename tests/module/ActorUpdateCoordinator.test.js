@@ -1,6 +1,6 @@
 import ActorUpdateCoordinator from 'module/actorUpdateCoordinator';
-import Renderer from '../../src/module/renderer';
-import SocketController from '../../src/module/socketController';
+import Renderer from 'module/Renderer';
+import SocketController from 'module/SocketController';
 
 let mockRenderer;
 let mockSocketController;

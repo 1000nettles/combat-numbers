@@ -9,17 +9,17 @@
 
 import _ from 'lodash';
 import registerSettings from './module/settings';
-import CombatNumberLayer from './module/combatNumberLayer';
-import Renderer from './module/renderer';
-import SocketController from './module/socketController';
-import TokenUpdateCoordinator from './module/tokenUpdateCoordinator';
-import ActorUpdateCoordinator from './module/actorUpdateCoordinator';
-import TokenCalculator from './module/calculator/tokenCalculator';
-import ActorCalculator from './module/calculator/actorCalculator';
-import HpObjectPathFinder from './module/hpObjectPathFinder';
-import ControlsGenerator from './module/controlsGenerator';
-import State from './module/state';
-import Appearance from './module/appearance';
+import CombatNumberLayer from './module/CombatNumberLayer';
+import Renderer from './module/Renderer';
+import SocketController from './module/SocketController';
+import TokenUpdateCoordinator from './module/TokenUpdateCoordinator';
+import ActorUpdateCoordinator from './module/ActorUpdateCoordinator';
+import TokenCalculator from './module/calculator/TokenCalculator';
+import ActorCalculator from './module/calculator/ActorCalculator';
+import HpObjectPathFinder from './module/HpObjectPathFinder';
+import ControlsGenerator from './module/ControlsGenerator';
+import State from './module/State';
+import Appearance from './module/Appearance';
 import CombatNumbersApi from './external/CombatNumbersApi';
 
 /* eslint no-console: ['error', { allow: ['warn', 'log', 'debug'] }] */

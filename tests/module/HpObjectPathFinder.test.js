@@ -1,5 +1,5 @@
 import { when } from 'jest-when';
-import HpObjectPathFinder from 'module/hpObjectPathFinder';
+import HpObjectPathFinder from 'module/HpObjectPathFinder';
 
 let hpObjectPathFinder;
 let mockSettings;

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import AbstractCalculator from './abstractCalculator';
+import AbstractCalculator from './AbstractCalculator';
 
 /**
  * Used for any Token-specific calculations.

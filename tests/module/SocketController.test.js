@@ -1,4 +1,4 @@
-import SocketController from 'module/socketController';
+import SocketController from 'module/SocketController';
 
 let mockSocket;
 let mockUser;

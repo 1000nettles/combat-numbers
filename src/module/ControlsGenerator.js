@@ -1,4 +1,4 @@
-import State from './state';
+import State from './State';
 
 /**
  * Facilitate the generation of the Controls for the toolbar.

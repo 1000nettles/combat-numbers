@@ -1,4 +1,4 @@
-import State from 'module/state';
+import State from 'module/State';
 
 it('should get the current pause broadcast state', () => {
   const state = new State();

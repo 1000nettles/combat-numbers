@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import HpObjectPathFinder from '../hpObjectPathFinder';
+import HpObjectPathFinder from '../HpObjectPathFinder';
 
 /* eslint-disable no-unused-vars */
 

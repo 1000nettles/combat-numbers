@@ -1,4 +1,4 @@
-import CombatNumbersConfig from './combatNumbersConfig';
+import CombatNumbersConfig from './CombatNumbersConfig';
 
 /**
  * A class to translate our appearance settings into a PIXI Text Style object.

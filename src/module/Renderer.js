@@ -1,5 +1,5 @@
 import { ease } from 'pixi-ease';
-import AmountStylizer from './amountStylizer';
+import AmountStylizer from './AmountStylizer';
 
 /**
  * A Renderer class to handle rendering responsibilities.

@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import Renderer from './renderer';
-import SocketController from './socketController';
+import Renderer from './Renderer';
+import SocketController from './SocketController';
 
 /**
  * Coordinate any Token updates from the Foundry Hook system.

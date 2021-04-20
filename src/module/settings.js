@@ -1,7 +1,7 @@
 /* global game */
 /* global window */
 
-import CombatNumbersConfig from './combatNumbersConfig';
+import CombatNumbersConfig from './CombatNumbersConfig';
 
 export default () => {
   // The Appearance settings menu and settings entry...
