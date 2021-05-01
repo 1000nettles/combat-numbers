@@ -23,8 +23,10 @@ import Appearance from './module/Appearance';
 import CombatNumbersApi from './external/CombatNumbersApi';
 
 /* eslint no-console: ['error', { allow: ['warn', 'log', 'debug'] }] */
+/* global CONFIG */
 /* global Canvas */
 /* global Hooks */
+/* global foundry */
 /* global game */
 /* global canvas */
 /* global mergeObject */
@@ -82,9 +84,30 @@ let isUsingStaticLayers = true;
 const moduleName = 'combat-numbers';
 
 /**
+ * Determine if we're running Foundry v0.8.x or not.
+ *
+ * @return {boolean}
+ */
+function isV8x() {
+  return !!CONFIG?.Canvas?.layers;
+}
+
+/**
  * Register the Combat Numbers layer into the Canvas' static layers.
+ *
+ * Takes into account registering layers for 0.7.x and 0.8.x Foundry versions.
  */
 function registerStaticLayer() {
+  if (isV8x()) {
+    // For 0.8.x.
+    const layers = foundry.utils.mergeObject(CONFIG.Canvas.layers, {
+      combatNumbers: CombatNumberLayer,
+    });
+    Object.defineProperty(CONFIG.Canvas, 'layers', layers);
+    return;
+  }
+
+  // For 0.7.x.
   const layers = mergeObject(Canvas.layers, {
     combatNumbers: CombatNumberLayer,
   });
@@ -286,7 +309,7 @@ Hooks.on('getSceneControlButtons', (controls) => {
     'show_controls',
   ));
 
-  const controlsGenerator = new ControlsGenerator(state);
+  const controlsGenerator = new ControlsGenerator(state, isV8x());
   controlsGenerator.generate(
     controls,
     game.user.isGM,

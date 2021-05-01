@@ -4,12 +4,19 @@ import State from './State';
  * Facilitate the generation of the Controls for the toolbar.
  */
 export default class ControlsGenerator {
-  constructor(state) {
+  /**
+   * @param {State} state
+   *   The State dependency to inject.
+   * @param {boolean} isV8x
+   *   If we're dealing with Foundry v0.8.x or not.
+   */
+  constructor(state, isV8x) {
     if (!(state instanceof State)) {
       throw new Error('Required `state` is not instance of State');
     }
 
     this.state = state;
+    this.isV8x = isV8x;
   }
 
   /**
@@ -31,7 +38,7 @@ export default class ControlsGenerator {
       name: 'combatNumbers',
       title: 'COMBATNUMBERS.CONTROLS.title',
       icon: 'fas fa-hashtag',
-      layer: 'CombatNumberLayer',
+      layer: this.isV8x ? 'combatNumbers' : 'CombatNumberLayer',
       tools: [
         {
           name: 'pause-broadcast',

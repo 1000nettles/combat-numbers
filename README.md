@@ -1,6 +1,6 @@
 # Combat Numbers
 
-![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v1.1.0.zip?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v1.1.1.zip?style=flat-square)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fcombat-numbers&style=flat-square)
 ![Issues](https://img.shields.io/github/issues/1000nettles/combat-numbers?style=flat-square)
 ![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers?style=flat-square)
@@ -93,6 +93,7 @@ For example, the default HP Object Path for the DnD5e system is `attributes.hp.v
 ## Language Support
 
 * English
+* 한국어/韓國語 (Korean) - thanks to `drdwing` for this localisation!
 * 日本語 (Japanese) - thanks to `touge` for this localisation!
 * Svenska (Swedish) - thanks to `xdy` for this localisation!
 
