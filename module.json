@@ -2,7 +2,7 @@
   "name": "combat-numbers",
   "title": "Combat Numbers",
   "description": "Showcase bouncing combat numbers on tokens, similar to old-school JRPGs.",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "author": "1000Nettles",
   "languages": [
     {
@@ -31,10 +31,10 @@
   ],
   "socket": true,
   "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "0.8.4",
+  "compatibleCoreVersion": "0.8.5",
   "url": "https://github.com/1000nettles/combat-numbers",
-  "manifest": "https://github.com/1000nettles/combat-numbers/releases/latest/download/module.json",
-  "download": "https://github.com/1000nettles/combat-numbers/releases/download/v1.1.3/combat-numbers-v1.1.3.zip",
+  "manifest": "https://github.com/1000nettles/combat-numbers/releases/download/v1.1.4/module.json",
+  "download": "https://github.com/1000nettles/combat-numbers/releases/download/v1.1.4/combat-numbers-v1.1.4.zip",
   "license": "MIT",
   "readme": "https://raw.githubusercontent.com/1000nettles/combat-numbers/main/README.md",
   "changelog": "https://github.com/1000nettles/combat-numbers/blob/main/CHANGELOG.md"
