@@ -5,7 +5,7 @@
 ![Issues](https://img.shields.io/github/issues/1000nettles/combat-numbers?style=flat-square)
 ![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers?style=flat-square)
 
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G82ZNNS)
+[![Patreon](img/become_a_patron.png)](https://www.patreon.com/1000nettles)
 
 Combat Numbers is a FoundryVTT module which showcases bouncing combat text on tokens, similar to old-school JRPGs. There's still work to do, but it allows for fine-grained control on what is broadcast to other players when an actor's HP changes. 
 
