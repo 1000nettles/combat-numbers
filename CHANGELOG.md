@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.1.5] - 2021-06-16
+
+### Added
+
+- Support for FoundryVTT version 0.8.6 and 0.8.7
+
 ## [1.1.4] - 2021-05-21
 
 ### Added
