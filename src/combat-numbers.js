@@ -21,6 +21,8 @@ import ControlsGenerator from './module/ControlsGenerator';
 import State from './module/State';
 import Appearance from './module/Appearance';
 import CombatNumbersApi from './external/CombatNumbersApi';
+import Masking from './module/Masking';
+import Constants from './module/Constants';
 
 /* eslint no-console: ['error', { allow: ['warn', 'log', 'debug'] }] */
 /* global CONFIG */
@@ -67,6 +69,11 @@ let actorCalculator;
 let state;
 
 /**
+ * Our Masking instance for use within hooks.
+ */
+let masking;
+
+/**
  * If our current Foundry's Canvas class is using statically stored layers.
  *
  * This is a large change between Foundry versions so we depend on this for
@@ -75,13 +82,6 @@ let state;
  * @type {boolean}
  */
 let isUsingStaticLayers = true;
-
-/**
- * The name of our module.
- *
- * @type {string}
- */
-const moduleName = 'combat-numbers';
 
 /**
  * Determine if we're running Foundry v0.8.x or not.
@@ -176,9 +176,11 @@ Hooks.on('canvasReady', async () => {
 
   const scene = findViewedScene();
   const appearance = new Appearance(
-    game.settings.get('combat-numbers', 'appearance'),
+    game.settings.get(Constants.MODULE_NAME, 'appearance'),
     scene.data.grid,
   );
+
+  masking = new Masking(state, game.settings);
 
   renderer = new Renderer(
     layer,
@@ -205,19 +207,21 @@ Hooks.on('canvasReady', async () => {
     socketController,
     actorCalculator,
     state,
+    masking,
   );
   tokenUpdateCoordinator = new TokenUpdateCoordinator(
     renderer,
     socketController,
     tokenCalculator,
     state,
+    masking,
   );
 
   await socketController.init();
 
   // Set the initial default of the masking setting.
   const maskDefault = !!(game.settings.get(
-    moduleName,
+    Constants.MODULE_NAME,
     'mask_default',
   ));
   state.setIsMask(maskDefault);
@@ -305,7 +309,7 @@ Hooks.on('updateToken', (scene, entity, delta, audit) => {
 
 Hooks.on('getSceneControlButtons', (controls) => {
   const showControls = !!(game.settings.get(
-    moduleName,
+    Constants.MODULE_NAME,
     'show_controls',
   ));
 

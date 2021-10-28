@@ -6,11 +6,12 @@ import SocketController from './SocketController';
  * Coordinate any Token updates from the Foundry Hook system.
  */
 export default class TokenUpdateCoordinator {
-  constructor(renderer, socketController, calculator, state) {
+  constructor(renderer, socketController, calculator, state, masking) {
     this.renderer = renderer;
     this.socketController = socketController;
     this.calculator = calculator;
     this.state = state;
+    this.masking = masking;
     this.queuedUpdates = new Map();
   }
 
@@ -68,7 +69,7 @@ export default class TokenUpdateCoordinator {
 
     const coords = this.calculator.getCoordinates(scene, entity);
 
-    if (this.state.getIsMask()) {
+    if (this.masking.shouldMaskToken(entity)) {
       const maskedType = (hpDiff < 0)
         ? Renderer.maskedTypes.TYPE_DAMAGE
         : Renderer.maskedTypes.TYPE_HEAL;

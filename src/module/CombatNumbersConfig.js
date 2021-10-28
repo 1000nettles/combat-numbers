@@ -3,6 +3,8 @@
 /* global jQuery */
 /* global mergeObject */
 
+import Constants from './Constants';
+
 /**
  * Form application to configure settings of Combat Numbers.
  *
@@ -85,7 +87,7 @@ export default class CombatNumbersConfig extends FormApplication {
 
   /** @override */
   getData() {
-    const appearance = game.settings.get('combat-numbers', 'appearance');
+    const appearance = game.settings.get(Constants.MODULE_NAME, 'appearance');
     const defaultAppearance = CombatNumbersConfig.DEFAULT_APPEARANCE;
     const object = {
       fontList: this._getFontList(),
@@ -109,7 +111,7 @@ export default class CombatNumbersConfig extends FormApplication {
     super.activateListeners(html);
 
     // Set up the form with the current settings values.
-    const appearance = game.settings.get('combat-numbers', 'appearance');
+    const appearance = game.settings.get(Constants.MODULE_NAME, 'appearance');
     const fontKey = this._getFontKeyByName(appearance.font);
 
     // As we cannot set the current selected `option` via Handlebars, we have
@@ -173,7 +175,7 @@ export default class CombatNumbersConfig extends FormApplication {
     appearance.dropShadowAlpha = formData.dropShadowAlpha;
 
     await game.settings.set(
-      'combat-numbers',
+      Constants.MODULE_NAME,
       'appearance',
       appearance,
     );

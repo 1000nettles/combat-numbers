@@ -1,5 +1,6 @@
 import { ease } from 'pixi-ease';
 import AmountStylizer from './AmountStylizer';
+import Constants from './Constants';
 
 /**
  * A Renderer class to handle rendering responsibilities.
@@ -31,13 +32,6 @@ export default class Renderer {
      * The associated Appearance instance..
      */
     this.appearance = appearance;
-
-    /**
-     * Our module name.
-     *
-     * @type {string}
-     */
-    this.moduleName = 'combat-numbers';
   }
 
   /**
@@ -179,7 +173,7 @@ export default class Renderer {
    */
   _shouldShowModifiers() {
     return !!(this.settings.get(
-      this.moduleName,
+      Constants.MODULE_NAME,
       'show_modifiers',
     ));
   }
@@ -194,7 +188,7 @@ export default class Renderer {
    */
   _getMaskDamageText() {
     return String(this.settings.get(
-      this.moduleName,
+      Constants.MODULE_NAME,
       'mask_damage',
     ));
   }
@@ -209,7 +203,7 @@ export default class Renderer {
    */
   _getMaskHealText() {
     return this.settings.get(
-      this.moduleName,
+      Constants.MODULE_NAME,
       'mask_heal',
     );
   }
@@ -224,7 +218,7 @@ export default class Renderer {
    */
   _getWaitTime() {
     const waitTime = Number(this.settings.get(
-      this.moduleName,
+      Constants.MODULE_NAME,
       'wait_time',
     ));
 
@@ -241,7 +235,7 @@ export default class Renderer {
    */
   _getLingerTime() {
     const lingerTime = Number(this.settings.get(
-      this.moduleName,
+      Constants.MODULE_NAME,
       'linger_time',
     ));
 

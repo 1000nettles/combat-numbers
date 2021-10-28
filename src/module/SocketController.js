@@ -91,6 +91,8 @@ export default class SocketController {
    * @param {number} data
    *   The relevant data for the emission. Currently can be a numeric Combat
    *   Number amount, or a numeric enum value for the masked value.
+   * @param {number} type
+   *   The "emit type" to push. One of `SocketController.emitTypes` values.
    * @param {number} x
    *   The relevant X position for later rendering.
    * @param {number} y

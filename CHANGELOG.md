@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-10-28
+
+### Added
+
+- Support for FoundryVTT version 0.8.8 and 0.8.9
+- Support for masking based on token disposition
+
 ## [1.1.5] - 2021-06-16
 
 ### Added

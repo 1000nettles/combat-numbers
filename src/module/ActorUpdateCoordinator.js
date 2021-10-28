@@ -7,11 +7,12 @@ import SocketController from './SocketController';
  * Coordinate any Actor updates from the Foundry Hook system.
  */
 export default class ActorUpdateCoordinator {
-  constructor(renderer, socketController, calculator, state) {
+  constructor(renderer, socketController, calculator, state, masking) {
     this.renderer = renderer;
     this.socketController = socketController;
     this.calculator = calculator;
     this.state = state;
+    this.masking = masking;
   }
 
   /**
@@ -45,7 +46,7 @@ export default class ActorUpdateCoordinator {
     tokens.forEach((token) => {
       const coords = this.calculator.getCoordinates(scene, token);
 
-      if (this.state.getIsMask()) {
+      if (this.masking.shouldMaskToken(token)) {
         const maskedType = (hpDiff < 0)
           ? Renderer.maskedTypes.TYPE_DAMAGE
           : Renderer.maskedTypes.TYPE_HEAL;

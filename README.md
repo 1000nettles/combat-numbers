@@ -1,6 +1,6 @@
 # Combat Numbers
 
-![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v1.1.5.zip?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/1000nettles/combat-numbers/latest/combat-numbers-v1.2.0.zip?style=flat-square)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fcombat-numbers&style=flat-square)
 ![Issues](https://img.shields.io/github/issues/1000nettles/combat-numbers?style=flat-square)
 ![MIT License](https://img.shields.io/github/license/1000nettles/combat-numbers?style=flat-square)
@@ -76,6 +76,7 @@ window.combatNumbers.setIsPauseBroadcast(true);
 * **Linger Time:** The amount of time (in seconds) for the Combat Numbers to linger on the screen after being displayed.
 * **Show Canvas Layer Controls:** If enabled, it will show the Canvas Layer Controls button in the toolbar. Defaults to enabled.  
 * **Show Addition / Subtraction Modifiers:** If enabled, it will show a "-" in front of a Combat Number when dealing damage, or show a "+" when healing.
+* **Masked Token Disposition Types**: The tokens that will be masked when masking is turned on, based on their disposition.
 * **Mask Default State:** The default state of the masking toggle in the Canvas Layer Controls tools. Checked means ON, unchecked means OFF.
 * **Mask Damage Text:** When masking is on, this is the text that will display for damage instead of the numeric value.
 * **Mask Heal Text:** When masking is on, this is the text that will display for healing instead of the numeric value.

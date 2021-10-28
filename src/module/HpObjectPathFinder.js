@@ -1,3 +1,5 @@
+import Constants from './Constants';
+
 /**
  * A class for finding the HP Object path.
  *
@@ -16,13 +18,6 @@ export default class HpObjectPathFinder {
      * The global Foundry Settings object.
      */
     this.settings = settings;
-
-    /**
-     * Our module name.
-     *
-     * @type {string}
-     */
-    this.moduleName = 'combat-numbers';
 
     /**
      * The path prefix which is present in every Foundry object path.
@@ -87,7 +82,7 @@ export default class HpObjectPathFinder {
       pathDefault = this.defaultHpPath;
     }
 
-    let value = this.settings.get(this.moduleName, settingsKey);
+    let value = this.settings.get(Constants.MODULE_NAME, settingsKey);
 
     if (!value) {
       value = pathDefault;
