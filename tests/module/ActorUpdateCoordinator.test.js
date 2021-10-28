@@ -6,6 +6,7 @@ let mockRenderer;
 let mockSocketController;
 let mockCalculator;
 let mockState;
+let mockMasking;
 let coordinator;
 
 beforeEach(() => {
@@ -13,11 +14,13 @@ beforeEach(() => {
   mockSocketController = {};
   mockCalculator = {};
   mockState = {};
+  mockMasking = {};
   coordinator = new ActorUpdateCoordinator(
     mockRenderer,
     mockSocketController,
     mockCalculator,
     mockState,
+    mockMasking,
   );
 });
 
@@ -55,7 +58,7 @@ it('should process and render and emit to the socket controller if we are using 
   mockCalculator.getHpDiff = () => 5;
   mockCalculator.getCoordinates = () => ({ x: 1, y: 2 });
 
-  mockState.getIsMask = () => true;
+  mockMasking.shouldMaskToken = () => true;
   mockRenderer.processMaskedAndRender = jest.fn();
   mockSocketController.emit = jest.fn();
 
@@ -83,7 +86,7 @@ it('should process and render and emit to the socket controller if we are using 
   mockCalculator.getHpDiff = () => 5;
   mockCalculator.getCoordinates = () => ({ x: 1, y: 2 });
 
-  mockState.getIsMask = () => false;
+  mockMasking.shouldMaskToken = () => false;
   mockRenderer.processNumericAndRender = jest.fn();
   mockSocketController.emit = jest.fn();
 
