@@ -53,7 +53,7 @@ it('should return void if the HP diff is zero', () => {
 it('should process and render and emit to the socket controller if we are using mask', () => {
   const mockEntity = {};
   const mockDelta = {};
-  const mockScene = { _id: 1234 };
+  const mockScene = { id: 1234 };
 
   mockCalculator.getHpDiff = () => 5;
   mockCalculator.getCoordinates = () => ({ x: 1, y: 2 });
@@ -81,7 +81,7 @@ it('should process and render and emit to the socket controller if we are using 
 it('should process and render and emit to the socket controller if we are using numeric', () => {
   const mockEntity = {};
   const mockDelta = {};
-  const mockScene = { _id: 1234 };
+  const mockScene = { id: 1234 };
 
   mockCalculator.getHpDiff = () => 5;
   mockCalculator.getCoordinates = () => ({ x: 1, y: 2 });
