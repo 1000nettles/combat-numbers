@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.2.1] - 2021-12-22
+
+### Added
+
+- Support for FoundryVTT versions 9.x
+
+### Fixed
+
+- Fixed canvas not rendering in 9.x versions
+- Fixed socket emission issues on 9.x
+
 ## [1.2.0] - 2021-10-28
 
 ### Added
