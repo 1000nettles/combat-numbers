@@ -7,16 +7,16 @@ export default class ControlsGenerator {
   /**
    * @param {State} state
    *   The State dependency to inject.
-   * @param {boolean} isV8x
-   *   If we're dealing with Foundry v0.8.x or not.
+   * @param {boolean} isModernVersion
+   *   If we're dealing with Foundry v0.8.x or Foundry v0.9.x or not.
    */
-  constructor(state, isV8x) {
+  constructor(state, isModernVersion) {
     if (!(state instanceof State)) {
       throw new Error('Required `state` is not instance of State');
     }
 
     this.state = state;
-    this.isV8x = isV8x;
+    this.isModernVersion = isModernVersion;
   }
 
   /**
@@ -38,7 +38,7 @@ export default class ControlsGenerator {
       name: 'combatNumbers',
       title: 'COMBATNUMBERS.CONTROLS.title',
       icon: 'fas fa-hashtag',
-      layer: this.isV8x ? 'combatNumbers' : 'CombatNumberLayer',
+      layer: this.isModernVersion ? 'combatNumbers' : 'CombatNumberLayer',
       tools: [
         {
           name: 'pause-broadcast',

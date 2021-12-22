@@ -57,7 +57,7 @@ export default class ActorUpdateCoordinator {
           SocketController.emitTypes.TYPE_MASKED,
           coords.x,
           coords.y,
-          scene._id,
+          scene.id,
         );
 
         return;
@@ -69,7 +69,7 @@ export default class ActorUpdateCoordinator {
         SocketController.emitTypes.TYPE_NUMERIC,
         coords.x,
         coords.y,
-        scene._id,
+        scene.id,
       );
     });
   }

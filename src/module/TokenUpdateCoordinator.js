@@ -26,7 +26,7 @@ export default class TokenUpdateCoordinator {
 
     // Store the update data for later when we see a full update.
     this.queuedUpdates.set(
-      entityClone._id,
+      entityClone.id,
       entityClone,
     );
   }
@@ -41,10 +41,10 @@ export default class TokenUpdateCoordinator {
    */
   coordinateUpdate(scene, delta) {
     let hpDiff;
-    const entityId = String(delta._id);
+    const entityId = String(delta.id);
 
     // Let's find the previously stored delta.
-    const entity = this.queuedUpdates.get(delta._id);
+    const entity = this.queuedUpdates.get(delta.id);
 
     if (!entity) {
       // We may not have created an update queued previously, due to a
@@ -80,7 +80,7 @@ export default class TokenUpdateCoordinator {
         SocketController.emitTypes.TYPE_MASKED,
         coords.x,
         coords.y,
-        scene._id,
+        scene.id,
       );
     } else {
       this.renderer.processNumericAndRender(hpDiff, coords.x, coords.y);
@@ -89,7 +89,7 @@ export default class TokenUpdateCoordinator {
         SocketController.emitTypes.TYPE_NUMERIC,
         coords.x,
         coords.y,
-        scene._id,
+        scene.id,
       );
     }
 

@@ -89,7 +89,11 @@ let isUsingStaticLayers = true;
  * @return {boolean}
  */
 function isV8x() {
-  return !!CONFIG?.Canvas?.layers;
+  return !!CONFIG?.Canvas?.layers && CONFIG?.Canvas?.layers?.background?.layerClass == null;
+}
+
+function isV9x() {
+  return !!CONFIG?.Canvas?.layers && CONFIG?.Canvas?.layers?.background?.layerClass != null;
 }
 
 /**
@@ -98,6 +102,18 @@ function isV8x() {
  * Takes into account registering layers for 0.7.x and 0.8.x Foundry versions.
  */
 function registerStaticLayer() {
+  if (isV9x()) {
+    // For 0.9.x.
+    const layers = foundry.utils.mergeObject(CONFIG.Canvas.layers, {
+      combatNumbers: {
+        layerClass: CombatNumberLayer,
+        group: 'effects',
+      },
+    });
+    Object.defineProperty(CONFIG.Canvas, 'layers', layers);
+    return;
+  }
+
   if (isV8x()) {
     // For 0.8.x.
     const layers = foundry.utils.mergeObject(CONFIG.Canvas.layers, {
@@ -313,7 +329,7 @@ Hooks.on('getSceneControlButtons', (controls) => {
     'show_controls',
   ));
 
-  const controlsGenerator = new ControlsGenerator(state, isV8x());
+  const controlsGenerator = new ControlsGenerator(state, (isV8x() || isV9x()));
   controlsGenerator.generate(
     controls,
     game.user.isGM,
